@@ -1,0 +1,23 @@
+language: cpp
+
+os: linux
+
+compiler: gcc
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-5
+
+install: export CXX="g++-5"
+
+script: 
+    - make CXX=g++-5
+    - chmod u+x auto                         # Allow auto to execute. 
+    - ./auto Examples/AssociativeArrays.al   # Make sure all examples are running.
+    - ./auto Examples/Example7.al
+    - ./auto Examples/Fibonacci.al
+    - ./auto Examples/MapTest.al
+    - ./auto Examples/Sort.al

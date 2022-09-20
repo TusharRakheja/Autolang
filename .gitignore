@@ -1,0 +1,10 @@
+/Interpreter/
+Files/Interpreter.suo
+Files/Interpreter.v12.suo
+Files/test.al
+/Interpreter_V2/
+Examples/NiceTest.al
+*.o
+*.obj
+/Tests/
+*.exe
