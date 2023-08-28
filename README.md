@@ -3,7 +3,7 @@
 <tr>
  <td> <img src="http://i.imgur.com/hPJTyrh.gif" height="auto" width="500" /> </td>
  <td> 
-  <p> <b>Autolang</b> is a high-level programming language supporting multiple paradigms, with syntax rooted in mathematical notation. </p> 
+  <p> <b>Autolang</b> is a high-level programming language supporting multiple paradigms, with syntax rooted in mathematical notation.</p> 
   
   <p> It supports
    <ul>
