@@ -40,7 +40,6 @@ ExpressionTree.obj :
 	"$(CXX)" /c .\Files\Source_Files\ExpressionTree.cpp $(OPTIONS) 
 
 Interpreter.obj :
-	echo "$(INCLUDE)"
 	"$(CXX)" /c .\Files\Source_Files\Interpreter.cpp $(OPTIONS)
 
 clean : 
