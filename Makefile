@@ -13,35 +13,35 @@ OPTIONS = /EHsc /W0
 all : auto
 
 auto :  $(OBJS)
-	"$(LNK)" /OUT:auto.exe /LIBPATH:"$(LIB)" /LIBPATH:"$(LIB2)" /LIBPATH:"$(LIB3)" $(OBJS)
+	"$(LNK)" /OUT:auto.exe $(OBJS)
 	
 AbstractMap.obj :
-	"$(CXX)" /c .\Files\Source_Files\AbstractMap.cpp /I "$(INCLUDE)" /I "$(LIB)" /I "$(UCRT)" $(OPTIONS)
+	"$(CXX)" /c .\Files\Source_Files\AbstractMap.cpp $(OPTIONS)
 
 AbstractSet.obj : 
-	"$(CXX)" /c .\Files\Source_Files\AbstractSet.cpp /I "$(INCLUDE)" /I "$(LIB)" /I "$(UCRT)" $(OPTIONS) 
+	"$(CXX)" /c .\Files\Source_Files\AbstractSet.cpp $(OPTIONS) 
 	
 Set.obj : 
-	"$(CXX)" /c .\Files\Source_Files\Set.cpp /I "$(INCLUDE)" /I "$(LIB)" /I "$(UCRT)" $(OPTIONS)  
+	"$(CXX)" /c .\Files\Source_Files\Set.cpp $(OPTIONS)  
 
 Tuple.obj :
-	"$(CXX)" /c .\Files\Source_Files\Tuple.cpp /I "$(INCLUDE)" /I "$(LIB)" /I "$(UCRT)" $(OPTIONS)  
+	"$(CXX)" /c .\Files\Source_Files\Tuple.cpp $(OPTIONS)  
 
 Map.obj :
-	"$(CXX)" /c .\Files\Source_Files\Map.cpp /I "$(INCLUDE)" /I "$(LIB)" /I "$(UCRT)" $(OPTIONS)  
+	"$(CXX)" /c .\Files\Source_Files\Map.cpp $(OPTIONS)  
 
 Auto.obj :
-	"$(CXX)" /c .\Files\Source_Files\Auto.cpp /I "$(INCLUDE)" /I "$(LIB)" /I "$(UCRT)" $(OPTIONS)  
+	"$(CXX)" /c .\Files\Source_Files\Auto.cpp $(OPTIONS)  
 
 ProgramVars.obj :
-	"$(CXX)" /c .\Files\Source_Files\ProgramVars.cpp /I "$(INCLUDE)" /I "$(LIB)" /I "$(UCRT)" $(OPTIONS)  
+	"$(CXX)" /c .\Files\Source_Files\ProgramVars.cpp $(OPTIONS)  
 
 ExpressionTree.obj : 
-	"$(CXX)" /c .\Files\Source_Files\ExpressionTree.cpp /I "$(INCLUDE)" /I "$(LIB)" /I "$(UCRT)" $(OPTIONS) 
+	"$(CXX)" /c .\Files\Source_Files\ExpressionTree.cpp $(OPTIONS) 
 
 Interpreter.obj :
 	echo "$(INCLUDE)"
-	"$(CXX)" /c .\Files\Source_Files\Interpreter.cpp /I "$(INCLUDE)" /I "$(LIB)" /I "$(UCRT)" $(OPTIONS)
+	"$(CXX)" /c .\Files\Source_Files\Interpreter.cpp $(OPTIONS)
 
 clean : 
 	del $(OBJS) auto.exe
