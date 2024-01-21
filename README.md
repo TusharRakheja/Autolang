@@ -34,32 +34,16 @@ Clone (or alternatively download) the repo.
 ```
 $ git clone https://github.com/TusharRakheja/Autolang
 ```
-Then navigate into the directory and run `nmake`.
+Then navigate into the directory and from Command Prompt (**not** PowerShell) run:
 ```
-$ cd Autolang
-$ # ... set env vars
-$ nmake INCLUDE="$INCLUDE" LIB="$LIB" LIB2="$LIB2" LIB3="$LIB3" UCRT="$UCRT"
-```
-
-The passed in macros may differ slightly based on your system. For reference, mine are:
-```
-$ echo $INCLUDE
-C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\VC\Tools\MSVC\14.16.27023\include
-$ echo $LIB
-C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\VC\Tools\MSVC\14.16.27023\lib\x64
-$ echo $LIB2
-C:\Program Files (x86)\Windows Kits\10\Lib\10.0.17763.0\um\x64
-$ echo $LIB3
-C:\Program Files (x86)\Windows Kits\10\Lib\10.0.17763.0\ucrt\x64
-$ echo $UCRT
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt
+$ vcvars64 & nmake
 ```
 
 ## Usage
 
 Autolang can be used either with a file, or interactively. The filename argument is optional.
 
-`$ ./auto filename.al`
+`$ .\auto.exe filename.al`
 
 ## Examples
 
