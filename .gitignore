@@ -8,3 +8,4 @@ Examples/NiceTest.al
 *.obj
 /Tests/
 *.exe
+.vscode

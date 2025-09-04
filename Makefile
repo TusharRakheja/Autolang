@@ -42,5 +42,8 @@ ExpressionTree.obj :
 Interpreter.obj :
 	"$(CXX)" /c .\Files\Source_Files\Interpreter.cpp $(OPTIONS)
 
-clean : 
+clobber:
 	del $(OBJS) auto.exe
+
+clean : 
+	del $(OBJS)
