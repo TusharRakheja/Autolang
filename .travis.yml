@@ -6,8 +6,5 @@ env:
   global:
     - VSINSTALLDIR="C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools"
 
-before_script:
-  - cmd.exe /c "\"%VSINSTALLDIR%\\VC\\Auxiliary\\Build\\vcvars64.bat\""
-
-script:
-  - cmd.exe /c "nmake"
+script:script:
+  - cmd.exe /c "\"%VSINSTALLDIR%\\VC\\Auxiliary\\Build\\vcvars64.bat\" && where cl && where nmake && nmake"
