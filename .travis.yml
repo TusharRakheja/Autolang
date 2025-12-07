@@ -1,10 +1,9 @@
 os: windows
-
 language: shell
 
-env:
-  global:
-    - VSINSTALLDIR="C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools"
-
 script:
-  - cmd.exe /c "\"%VSINSTALLDIR%\\VC\\Auxiliary\\Build\\vcvars64.bat\" && where cl && where nmake && nmake"
+  - cmd.exe /c ^
+    "for /f \"usebackq tokens=*\" %%i in (`\"%ProgramFiles(x86)%\\Microsoft Visual Studio\\Installer\\vswhere.exe\" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do ^
+     call \"%%i\\VC\\Auxiliary\\Build\\vcvars64.bat\" && ^
+     where cl && where nmake && ^
+     nmake"
