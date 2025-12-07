@@ -12,7 +12,7 @@ env:
 
 install:
   # Start an actual cmd.exe shell (Travis runs PowerShell by default on Windows)
-  - cmd.exe /c "echo Using CMD"
+  - cmd.exe /c "echo Using cmd"
 
 before_script:
   # Initialize the MSVC build environment (64-bit)
