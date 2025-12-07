@@ -1,23 +1,13 @@
-language: cpp
+os: windows
 
-os:
-  - windows
-
-dist: focal
+language: shell
 
 env:
   global:
-    # Path where Visual Studio is usually installed on Travis Windows images
     - VSINSTALLDIR="C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools"
 
-install:
-  # Start an actual cmd.exe shell (Travis runs PowerShell by default on Windows)
-  - cmd.exe /c "echo Using cmd"
-
 before_script:
-  # Initialize the MSVC build environment (64-bit)
   - cmd.exe /c "\"%VSINSTALLDIR%\\VC\\Auxiliary\\Build\\vcvars64.bat\""
 
 script:
-  # Run nmake from the repo root
   - cmd.exe /c "nmake"
