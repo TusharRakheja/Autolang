@@ -54,7 +54,7 @@ int main(int argc, char **argv)
 {
 	for (auto pair : *program_vars::identify) pair.second->identifier = pair.first;
 	if (argc == 1) { print_info(); program = &cin; }
-	else program = new std::ifstream(argv[1]);
+	else program = new std::ifstream(argv[1], std::ios::binary);
 	parse_program();
 	if (program != &cin) delete program;
 	delete scopewise_identifiers;
@@ -473,7 +473,7 @@ void parse_assignment()
 
 				if (datasource(update)->elem != nullptr) filesource(datasource(update)->elem)->close();
 				datasource(update)->elem = shared_ptr<ifstream>{ 
-					new ifstream(str((*_tuple(new_value)->elems)[0])->elem.c_str())
+					new ifstream(str((*_tuple(new_value)->elems)[0])->elem.c_str(), std::ios::binary)
 				};
 				datasource(update)->delimiter = character((*_tuple(new_value)->elems)[1]);
 			}
