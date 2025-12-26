@@ -18,19 +18,19 @@ jobs:
           nmake
 
       - name: Run examples and verify output
-        shell: cmd
+        shell: pwsh
         run: |
           auto.exe Examples\AssociativeArrays.al > out.txt
-          fc /B out.txt Tests\expected\AssociativeArrays.txt || exit /b 1
+          fc out.txt Tests\expected\AssociativeArrays.txt || exit /b 1
 
           auto.exe Examples\Example7.al > out.txt
-          fc /B out.txt Tests\expected\Example7.txt || exit /b 1
+          fc out.txt Tests\expected\Example7.txt || exit /b 1
 
           auto.exe Examples\Fibonacci.al > out.txt
-          fc /B out.txt Tests\expected\Fibonacci.txt || exit /b 1
+          fc out.txt Tests\expected\Fibonacci.txt || exit /b 1
 
           auto.exe Examples\MapTest.al > out.txt
-          fc /B out.txt Tests\expected\MapTest.txt || exit /b 1
+          fc out.txt Tests\expected\MapTest.txt || exit /b 1
 
           auto.exe Examples\Sort.al > out.txt
-          fc /B out.txt Tests\expected\Sort.txt || exit /b 1
+          fc out.txt Tests\expected\Sort.txt || exit /b 1
