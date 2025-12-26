@@ -14,16 +14,12 @@ jobs:
       - name: Build auto.exe
         shell: cmd
         run: |
-          echo %cd%
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
           nmake
 
       - name: Run examples and verify output
-        shell: pwsh
+        shell: cmd
         run: |
-          pwd
-          ls
-
           auto.exe Examples\AssociativeArrays.al > out.txt
           fc out.txt Tests\expected\AssociativeArrays.txt || exit /b 1
 
