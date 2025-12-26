@@ -6,6 +6,5 @@ Files/test.al
 Examples/NiceTest.al
 *.o
 *.obj
-/Tests/
 *.exe
 .vscode
