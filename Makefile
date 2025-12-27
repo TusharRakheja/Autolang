@@ -2,48 +2,48 @@
 
 # MACROS
 
-CXX = cl.exe
-LNK = link.exe
-OBJS = Interpreter.obj Auto.obj ExpressionTree.obj Map.obj Set.obj Tuple.obj AbstractMap.obj AbstractSet.obj ProgramVars.obj
-OPTIONS = /EHsc /W0
+CXX = g++
+LNK = g++
+OBJS = Interpreter.o Auto.o ExpressionTree.o Map.o Set.o Tuple.o AbstractMap.o AbstractSet.o ProgramVars.o
+OPTIONS = -w
 # TARGETS
 
 .PHONY : all
 
 all : auto
 
-auto :  $(OBJS)
-	"$(LNK)" /OUT:auto.exe $(OBJS)
-	
-AbstractMap.obj :
-	"$(CXX)" /c .\Files\Source_Files\AbstractMap.cpp $(OPTIONS)
+auto : $(OBJS)
+	$(LNK) -o auto $(OBJS)
 
-AbstractSet.obj : 
-	"$(CXX)" /c .\Files\Source_Files\AbstractSet.cpp $(OPTIONS) 
-	
-Set.obj : 
-	"$(CXX)" /c .\Files\Source_Files\Set.cpp $(OPTIONS)  
+AbstractMap.o :
+	$(CXX) -c ./Files/Source_Files/AbstractMap.cpp $(OPTIONS)
 
-Tuple.obj :
-	"$(CXX)" /c .\Files\Source_Files\Tuple.cpp $(OPTIONS)  
+AbstractSet.o :
+	$(CXX) -c ./Files/Source_Files/AbstractSet.cpp $(OPTIONS)
 
-Map.obj :
-	"$(CXX)" /c .\Files\Source_Files\Map.cpp $(OPTIONS)  
+Set.o :
+	$(CXX) -c ./Files/Source_Files/Set.cpp $(OPTIONS)
 
-Auto.obj :
-	"$(CXX)" /c .\Files\Source_Files\Auto.cpp $(OPTIONS)  
+Tuple.o :
+	$(CXX) -c ./Files/Source_Files/Tuple.cpp $(OPTIONS)
 
-ProgramVars.obj :
-	"$(CXX)" /c .\Files\Source_Files\ProgramVars.cpp $(OPTIONS)  
+Map.o :
+	$(CXX) -c ./Files/Source_Files/Map.cpp $(OPTIONS)
 
-ExpressionTree.obj : 
-	"$(CXX)" /c .\Files\Source_Files\ExpressionTree.cpp $(OPTIONS) 
+Auto.o :
+	$(CXX) -c ./Files/Source_Files/Auto.cpp $(OPTIONS)
 
-Interpreter.obj :
-	"$(CXX)" /c .\Files\Source_Files\Interpreter.cpp $(OPTIONS)
+ProgramVars.o :
+	$(CXX) -c ./Files/Source_Files/ProgramVars.cpp $(OPTIONS)
+
+ExpressionTree.o :
+	$(CXX) -c ./Files/Source_Files/ExpressionTree.cpp $(OPTIONS)
+
+Interpreter.o :
+	$(CXX) -c ./Files/Source_Files/Interpreter.cpp $(OPTIONS)
 
 clobber:
-	del $(OBJS) auto.exe
+	rm -f $(OBJS) auto
 
-clean : 
-	del $(OBJS)
+clean :
+	rm -f $(OBJS)

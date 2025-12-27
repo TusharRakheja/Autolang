@@ -7,4 +7,5 @@ Examples/NiceTest.al
 *.o
 *.obj
 *.exe
+auto
 .vscode

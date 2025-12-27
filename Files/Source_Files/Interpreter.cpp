@@ -2198,9 +2198,7 @@ bool all_spaces(string& s)
 void print_info()
 {
 	cout << "Autolang, Version 2.0 \nCopyright (c) 2016 Tushar Rakheja (The MIT License)." << endl << endl;
-	cout << "Please contribute to Autolang if you find it useful." << endl;
-	cout << "For more info, visit https://github.com/TusharRakheja/Autolang." << endl << endl;
-	cout << "To change the prompt, use the env. variable \"__prompt__\"." << endl << endl;	
+	cout << "To change the prompt, use the variable \"__prompt__\"." << endl << endl;
 }
 
 void remove_comment(string &x)

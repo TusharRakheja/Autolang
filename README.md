@@ -1,4 +1,4 @@
-# Autolang &nbsp;[![Build Status](https://travis-ci.org/TusharRakheja/Autolang.svg?branch=master)](https://travis-ci.org/TusharRakheja/Autolang)
+# Autolang &nbsp;[![Windows MSVC build & tests](https://github.com/TusharRakheja/Autolang/actions/workflows/windows-msvc.yml/badge.svg)](https://github.com/TusharRakheja/Autolang/actions/workflows/windows-msvc.yml)&nbsp;[![Linux GCC build & tests](https://github.com/TusharRakheja/Autolang/actions/workflows/linux.yml/badge.svg)](https://github.com/TusharRakheja/Autolang/actions/workflows/linux.yml)
 <table>
 <tr>
  <td> <img src="http://i.imgur.com/hPJTyrh.gif" height="auto" width="500" /> </td>
@@ -25,6 +25,8 @@
 
 ## Building
 
+### Windows
+
 **Dependencies**
 
  - Visual Studio Build Tools 2017, including Windows SDK and Universal C Runtime.
@@ -36,14 +38,30 @@ $ git clone https://github.com/TusharRakheja/Autolang
 ```
 Then navigate into the directory and from Command Prompt (**not** PowerShell) run:
 ```
-$ vcvars64 & nmake
+$ vcvars64 & nmake /f Makefile.win
 ```
+
+### Ubuntu
+
+**Dependencies**
+
+ - `sudo apt-get install build-essential`
+
+Clone (or alternatively download) the repo.
+```
+$ git clone https://github.com/TusharRakheja/Autolang
+```
+Then navigate into the directory and in your terminal run:
+```
+$ make
+```
+
 
 ## Usage
 
 Autolang can be used either with a file, or interactively. The filename argument is optional.
 
-`$ .\auto.exe filename.al`
+`$ ./auto filename.al`
 
 ## Examples
 
@@ -81,7 +99,7 @@ Autolang has three primitve data types, `int, char,` and `logical`.
 
 #### a) Integers
 
-Standard 32-bit. The type keyword is `int`, as you've already probably seen.
+Standard ints. The type keyword is `int`, as you've already probably seen.
 
 **Basic Syntax**
 
@@ -762,9 +780,7 @@ As a demonstration of Autolang's functional capabilities, I've implemented two h
 {1, 4, 9, 16}
 ```
 
-Their implementation has been left as an ... nah, I wouldn't do that. I hate it. Really. 
-
-> _"**No**, I don't need **you** to tell me what IS and what isn't an exercise for me, you condescending narcissist. Fuck you!"_ <br> <br> <p align="right"> *-Rex, to every cocky mathematician in the world.*</p>
+Their implementation has been left as an ... nah, I wouldn't do that. I hate it. Really.
 
 ```perl
 >>> under apply : (am, s) -> (|s| == 1) ? { am[s[0]] } : ({ am[s[0]] } U apply[(am, s[(1, |s|)])])
@@ -794,15 +810,15 @@ This one is more subtle and kind of indirect. It is *possible* to write purely p
 
    Writing `s -> s U .A` in place of `s -> s U A` would be ineffective in ensuring the same result for the same `s`, since it will simply make a deep copy of whatever A is at the time of the call, not at the time of definition.
 
-As such, Autolang makes a distinction between 'operators' and 'updaters'. Operators by themselves cannot change data, only create it. The operands are not affected, so an operator applied to the same operands will always give the same result. By extension, a map using only operators will always give the same result with the same arguments (***referential transparency***). To fully realize this, though, the two conditions above must be met. 
+As such, Autolang makes a distinction between 'operators' and 'updaters'. Operators by themselves cannot change data, only create it. The operands are not affected, so an operator applied to the same operands will always give the same result. By extension, a map using only operators will always give the same result with the same arguments (***referential transparency***). To fully realize this, though, the two conditions above must be met.
 
 In fact, as such, all maps and abstract maps *are* half-pure by nature, in that they have ***no side-effects***. What I mean by that is, the computation of a mapping operation, *can never* change any data by itself. Because updaters (`=, +=, <-` etc) are *not allowed* in a mapping scheme. They must, invariably, occur with the **`let`** or **`get`** keyword, if they are to change data (`=` and `<-` can occur with initializations too, but they aren't changing data then. They are creating it).
 
-So, as long as the two conditions stated above are met, the map will be **pure**. It will be referentially transparent, and have no side-effects. 
+So, as long as the two conditions stated above are met, the map will be **pure**. It will be referentially transparent, and have no side-effects.
 
 ### 7. Data as Code
 
-Some entities in Autolang have a way to internally call Autolang's expression parser. You guessed it, Abstract Sets and Abstract Maps. Along with sourcing, this allows us to create abstract maps and sets at runtime. 
+Some entities in Autolang have a way to internally call Autolang's expression parser. You guessed it, Abstract Sets and Abstract Maps. Along with sourcing, this allows us to create abstract maps and sets at runtime.
 
 Let us say a file **`unpack.txt`** has this data.
 ```

@@ -1,0 +1,46 @@
+name: Linux GCC build & tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential
+          sudo apt-get install dos2unix
+          dos2unix Tests/expected/*.txt
+
+      - name: Build auto
+        run: |
+          make
+          make clean
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run examples and verify output
+        run: |
+          ./auto Examples/AssociativeArrays.al > out.txt
+          diff out.txt Tests/expected/AssociativeArrays.txt
+
+          ./auto Examples/Example7.al > out.txt
+          diff out.txt Tests/expected/Example7.txt
+
+          ./auto Examples/Fibonacci.al > out.txt
+          diff out.txt Tests/expected/Fibonacci.txt
+
+          ./auto Examples/MapTest.al > out.txt
+          python Tests/scripts/check_map_test_output.py out.txt
+
+          ./auto Examples/Sort.al > out.txt
+          diff out.txt Tests/expected/Sort.txt

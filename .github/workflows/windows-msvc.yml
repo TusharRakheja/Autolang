@@ -15,7 +15,13 @@ jobs:
         shell: cmd
         run: |
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-          nmake
+          nmake /f Makefile.win
+          nmake /f Makefile.win clean
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
       - name: Run examples and verify output
         shell: cmd
@@ -30,7 +36,8 @@ jobs:
           fc out.txt Tests\expected\Fibonacci.txt || exit /b 1
 
           auto.exe Examples\MapTest.al > out.txt
-          fc out.txt Tests\expected\MapTest.txt || exit /b 1
+          python Tests/scripts/check_map_test_output.py out.txt
+          if %ERRORLEVEL% neq 0 exit /b 1
 
           auto.exe Examples\Sort.al > out.txt
           fc out.txt Tests\expected\Sort.txt || exit /b 1
