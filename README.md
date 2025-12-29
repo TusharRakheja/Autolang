@@ -2,21 +2,21 @@
 <table>
 <tr>
  <td> <img src="http://i.imgur.com/hPJTyrh.gif" height="auto" width="500" /> </td>
- <td> 
-  <p> <b>Autolang</b> is a high-level programming language supporting multiple paradigms, with syntax rooted in mathematical notation.</p> 
-  
+ <td>
+  <p> <b>Autolang</b> is a high-level programming language supporting multiple paradigms, with syntax rooted in mathematical notation.</p>
+
   <p> It supports
    <ul>
     <li>Primitive data types (<code>int</code>, <code>char</code>, and <code>logical</code>),</li>
-    <li>Containers (<code>sets</code>, <code>tuples</code>,<code>maps</code> and <code>strings</code>), and</li> 
+    <li>Containers (<code>sets</code>, <code>tuples</code>,<code>maps</code> and <code>strings</code>), and</li>
     <li>Abstract containers (<code>abstract sets</code>, <code>abstract maps</code>).</li>
    </ul>
-    It has in-built support for automata (<code>auto</code>), which are the inspiration behind the name. 
+    It has in-built support for automata (<code>auto</code>), which are the inspiration behind the name.
   </p>
   <hr>
   <p align="center">
-   <a href="#building"><b>Build</b></a> &middot; 
-   <a href="#examples"><b>Try</b></a> &middot; 
+   <a href="#building"><b>Build</b></a> &middot;
+   <a href="#examples"><b>Try</b></a> &middot;
    <a href="#license"><b>License</b></a>
   </p>
  </td>
@@ -30,7 +30,7 @@
 **Dependencies**
 
  - Visual Studio Build Tools 2017, including Windows SDK and Universal C Runtime.
- - The `cl.exe` compiler and `link.exe` linker in PATH. 
+ - The `cl.exe` compiler and `link.exe` linker in PATH.
 
 Clone (or alternatively download) the repo.
 ```
@@ -65,7 +65,7 @@ Autolang can be used either with a file, or interactively. The filename argument
 
 ## Examples
 
-The real joy of Autolang is its very math-oriented syntax. Here are some cool examples you can try. 
+The real joy of Autolang is its very math-oriented syntax. Here are some cool examples you can try.
 
  - [Primitives](#1-primitives)
    * [Integers](#a-integers)
@@ -86,16 +86,16 @@ The real joy of Autolang is its very math-oriented syntax. Here are some cool ex
    * [Console](#b-console)
    * [Strings as Sources](#c-strings-as-sources)
  * [Functional Concepts](#6-functional-concepts)
-   * [&lambda; Expressions](#a-λ-expressions) 
+   * [&lambda; Expressions](#a-λ-expressions)
    * [Higher-order Functions](#b-higher-order-functions)
    * [Pure Functions](#c-pure-functions)
  * [Data as Code](#7-data-as-code)
  * [Loops and Conditionals](#8-loops-and-conditionals)
  * [Notes](#9-notes)
- 
+
 ### 1. Primitives
 
-Autolang has three primitve data types, `int, char,` and `logical`. 
+Autolang has three primitve data types, `int, char,` and `logical`.
 
 #### a) Integers
 
@@ -104,14 +104,14 @@ Standard ints. The type keyword is `int`, as you've already probably seen.
 **Basic Syntax**
 
 ```perl
->>> declare int i                                    # Integers are initialized to 0 by default. Characters to '\0', and logicals to False. 
->>> print i                                                        
+>>> declare int i                                    # Integers are initialized to 0 by default. Characters to '\0', and logicals to False.
+>>> print i
 0
 >>> int j = 1                                        # A custom initialization is also possible.
 >>> print j
 1
 >>> declare ints k, l                                # Using the type of the object in plural, multiple declarations can be made in one statement.
->>> print k, l                                       # Print multiple space-separated objects using commas. 
+>>> print k, l                                       # Print multiple space-separated objects using commas.
 0 0
 ```
 
@@ -120,13 +120,13 @@ Standard ints. The type keyword is `int`, as you've already probably seen.
 Here is a brief list of examples illustrating operators and updaters that work with integers; in fact, with all primitive values in Autolang. For _**characters**_, they are basically the same. The operators (`==`, `+`, `^` etc), as noted, will implicitly cast values across them if need be. However, updaters (`=`, `+=`, `^=` etc) will not.
 
 ```perl
->>> int i = 2
->>> print (1 + (3 * i)) / 7                          # All the usual arithmetic operators work, but they have no order of precedence. Use parentheses.
+>>> int z = 2
+>>> print (1 + (3 * z)) / 7                          # All the usual arithmetic operators work, but they have no order of precedence. Use parentheses.
 1
->>> print i ^ 10                                     # The '^' signifies raising a number to an exponent (not the XOR operation).
+>>> print z ^ 10                                     # The '^' signifies raising a number to an exponent (not the XOR operation).
 1024
->>> let i += 2                                       # A simple update. One could similarly use -=, *=, ^= etc.
->>> print (i % 2) == 0                               # All comparative operators are supported (<, >, <= etc).
+>>> let z += 2                                       # A simple update. One could similarly use -=, *=, ^= etc.
+>>> print (z % 2) == 0                               # All comparative operators are supported (<, >, <= etc).
 True
 >>> print |14| + |-13|                               # |n| is the modulus of n. Use |(n)| for an expression.
 27
@@ -163,8 +163,8 @@ Boolean values have the keyword `logical`, and the literals are represented by `
 **Basic Syntax**
 
 ```perl
->>> declare logical val                           # By default, logicals are initialized to False.
->>> print val
+>>> declare logical my_val                        # By default, logicals are initialized to False.
+>>> print my_val
 False
 >>> logical comp = 1 < '1'                        # Custom initialization. ASCII value of '1' is used.
 >>> print comp
@@ -181,7 +181,7 @@ False
 >>> print !True                                   # Negation (a unary operator).
 False
 >>> logical val = (4 % 2) != 0                    # To illustrate the updates.
->>> print val                  
+>>> print val
 False
 >>> let val V= True                               # Semantically equivalent to `val = val V True`
 >>> print val
@@ -201,20 +201,21 @@ Autolang has four kinds of containers, viz `sets`, `tuples`, `maps` and `strings
 
 #### a) Sets
 
-The key data structure in Autolang is a  **set** - a (possibly heterogeneous) collection of elements. 
+The key data structure in Autolang is a  **set** - a (possibly heterogeneous) collection of elements.
 
 **Basic Syntax**
 
 ```perl
->>> declare set A                                 # Declares an empty set A.
->>> print A
+>>> declare set M                                 # Declares an empty set M.
+>>> print M
 {}
->>> set easter = {27, 'J', 1996, A}               # Initializes a set with these elements. Identifiers as well as literals allowed.
+>>> set easter = {5, 'A', 2026, M}                # Initializes a set with these elements. Identifiers as well as literals allowed.
 >>> print easter
-{27, J, 1996, {}}
->>> printr easter                                 # The printr command recursively prints the raw version of the elements. 
-{27, 'J', 1996, {}}
->>> print exprset = { 1 + 2, 3 + 4 }              # The elements of a set can be expressions as well.
+{5, A, 2026, {}}
+>>> printr easter                                 # The printr command recursively prints the raw version of the elements.
+{5, 'A', 2026, {}}
+>>> set exprset = { 1 + 2, 3 + 4 }                # The elements of a set can be expressions as well.
+>>> print exprset                                 # The elements of a set can be expressions as well.
 {3, 7}
 ```
 
@@ -228,12 +229,12 @@ The key data structure in Autolang is a  **set** - a (possibly heterogeneous) co
 {2}
 ```
 
-**Advanced Operations** 
+**Advanced Operations**
 
 ```perl
->>> set A = {1, 2, 3} x {'A', 'B'}                # Cartesian Product. The result is a set of tuples.                              
->>> print A                          
-{(1, A), (1, B), (2, A), (2, B), (3, A), (3, B)} 
+>>> set A = {1, 2, 3} x {'A', 'B'}                # Cartesian Product. The result is a set of tuples.
+>>> print A
+{(1, A), (1, B), (2, A), (2, B), (3, A), (3, B)}
 >>> print |A|                                     # Print the cardinality of set A (an integer).
 6
 ```
@@ -249,16 +250,16 @@ In addition to the standard set operations, it is possible to access a member of
 
 ```perl
 >>> print A[1]                                    # Access the element of A at index 1.
-{(1, B)}
+(1, B)
 >>> print A[(1, 3)]                               # Access the subset of A between [1, 3).
 {(1, B), (2, A)}
 ```
 An element of a set accessed via the **`[]`** operator can be used exactly like you'd expect. For instance:
 
 ```perl
->>> set A = {{1, 2}, {3, 4}}                      # A set of sets. 
->>> let A[1] \= {4}                               # Directly update the set at index 1 of A.
->>> print A
+>>> set B = {{1, 2}, {3, 4}}                      # A set of sets.
+>>> let B[1] \= {4}                               # Directly update the set at index 1 of B.
+>>> print B
 {{1, 2}, {3}}
 ```
 
@@ -278,14 +279,14 @@ Basically a lightweight container which works just like a set, but with a somewh
 **Basic Syntax**
 
 ```perl
->>> tuple A = (1, )                                   # A single-element tuple needs a trailing comma.
->>> print A[0]
+>>> tuple T = (1, )                                   # A single-element tuple needs a trailing comma.
+>>> print T[0]
 1
 >>> declare tuple entry
 >>> string given = "Tushar"
 >>> string family = "Rakheja"
 >>> let entry = (given, family)                       # Identifiers can be used as elements.
->>> print entry
+>>> printr entry
 ("Tushar", "Rakheja")
 >>> print |entry|                                     # Print the dimension of the tuple.
 2
@@ -297,24 +298,24 @@ In order to help with that, we'll introduce a new operator.
 
 **Deep Copy**
 
-The deep copy operator **`.`** is a unary operator, that makes a copy of the expression to the right of it. It's called _deep_ copy because if the expression is a container, all elements within the container will also be copied, recursively. 
+The deep copy operator **`.`** is a unary operator, that makes a copy of the expression to the right of it. It's called _deep_ copy because if the expression is a container, all elements within the container will also be copied, recursively.
 
 ```perl
->>> int A = 1                                        # We'll use these two elements to illustrate.
->>> int B = 2
->>> tuple shallow = (A, B)                           # We're making a tuple that has `A` and `B` as its elements. 
->>> tuple copy_AB = (.A, .B)                         # We're making a tuple that has 'copies' of A and B.
->>> tuple copy_shallow = . shallow                   # We're making a tuple that is a deep copy of shallow. 
->>> let A += 3                                       # This will modify the contents of `shallow`, but not those of the two `copy` tuples.
->>> print shallow                                    # This is because the tuple `shallow` has as its elements the 'objects' that A and B identify. 
+>>> int X = 1                                        # We'll use these two elements to illustrate.
+>>> int Y = 2
+>>> tuple shallow = (X, Y)                           # We're making a tuple that has `X` and `Y` as its elements.
+>>> tuple copy_XY = (.X, .Y)                         # We're making a tuple that has 'copies' of X and Y.
+>>> tuple copy_shallow = . shallow                   # We're making a tuple that is a deep copy of shallow.
+>>> let X += 3                                       # This will modify the contents of `shallow`, but not those of the two `copy` tuples.
+>>> print shallow                                    # This is because the tuple `shallow` has as its elements the 'objects' that X and Y identify.
 (4, 2)
->>> print copy_AB                                    # Whereas, the tuple `copy_AB` was made with copies of those objects, which were not affected by the update. 
+>>> print copy_XY                                    # Whereas, the tuple `copy_XY` was made with copies of those objects, which were not affected by the update.
 (1, 2)
->>> print copy_shallow                               # The tuple `copy_shallow` was a copy of `shallow` made before the update. Since the '.' operator is recursive, it made copies of the objects inside of `shallow` as well. 
+>>> print copy_shallow                               # The tuple `copy_shallow` was a copy of `shallow` made before the update. Since the '.' operator is recursive, it made copies of the objects inside of `shallow` as well.
 (1, 2)
 ```
 
-So, this is how the **`.`** operator works. If ever one needs to use something inside a tuple as an rvalue, it will be preferable to use a deep copy there as well, in order to preserve the convention of tuple immutability. It is possible, however, to access individual elements in a tuple using the **`[]`** operator, both as lvalues and rvalues. 
+So, this is how the **`.`** operator works. If ever one needs to use something inside a tuple as an rvalue, it will be preferable to use a deep copy there as well, in order to preserve the convention of tuple immutability. It is possible, however, to access individual elements in a tuple using the **`[]`** operator, both as lvalues and rvalues.
 
 #### c) Strings
 
@@ -323,28 +324,29 @@ Container for a sequence of characters.
 **Basic Syntax**
 
 ```perl
->>> declare string null                              # By default strings are initialized to "".
->>> print null == ""
+>>> declare string nullstr                           # By default strings are initialized to "".
+>>> print nullstr == ""
 True
 >>> string str = "\(\n\)"                            # Just like in the case of characters, escape sequences are identified by \.
 >>> print str
 (
 )
->>> printr str                                       # Raw printng. 
+>>> printr str                                       # Raw printng.
 "\(\n\)"
 ```
 
 **Operations and Updates**
 
 ```perl
->>> string hello = "Hello"      
->>> string world = "World"
->>> print hello + " " + world                         # Strings can be concatenated with the + operator.
->>> string hellow = hello           
->>> let hellow += " " + world                         # The += updater will work as expected. 
+>>> string hello = "Hello"
+>>> string world = "World!"
+>>> print hello + ", " + world                        # Strings can be concatenated with the + operator.
+Hello, World!
+>>> string hellow = hello
+>>> let hellow += ", World"                           # The += updater will work as expected.
 >>> let hellow += '!'                                 # One can also append characters with it.
 >>> print hellow
-Hello World!
+Hello, World!
 ```
 
 Strings also support the **`[]`**, **`in`**, and **`||`** operator.
@@ -356,16 +358,16 @@ B
 4
 >>> print test[(1, 3)]                                # Returns the substring between [1, 3).
 BC
->>> logical val = ('A' in test) & ("BCD" in test)
->>> print val                                         # The 'in' op can take strings and chars both.
+>>> logical testval = ('A' in test) & ("BCD" in test)
+>>> print testval                                     # The 'in' op can take strings and chars both.
 True
 ```
 
-A thing to keep in mind is that the **`[]`** operator for strings follows _value semantics_, unlike in the case of sets and tuples. It does not return references to characters of the string, but instead, returns new copies of those characters.  
+A thing to keep in mind is that the **`[]`** operator for strings follows _value semantics_, unlike in the case of sets and tuples. It does not return references to characters of the string, but instead, returns new copies of those characters.
 
 **Typeof operator**
 
-**`typeof`** is a unary operator that takes in an expression, and return a string denoting it's type. 
+**`typeof`** is a unary operator that takes in an expression, and return a string denoting it's type.
 
 ```perl
 >>> print typeof 1
@@ -382,11 +384,11 @@ Containers that store mappings between two sets of elements are called **maps**.
 
 ```perl
 >>> declare map fog                                  # Declare a map fog
->>> map f : {"One", "Zero"} -> {True, False}		 # Initialize a map with a given domain and codomain.
->>> under f : "One"  -> True					     # `Under f, "One" goes to True.`
->>> under f : "Zero" -> False		                 
+>>> map f : {"One", "Zero"} -> {True, False}		     # Initialize a map with a given domain and codomain.
+>>> under f : "One"  -> True					               # `Under f, "One" goes to True.`
+>>> under f : "Zero" -> False
 >>> print f
-{(One, True), (Zero, False)}
+{(One, True), (Zero, False)}                         # Ordering not important
 ```
 
 **Operations and Updates**
@@ -394,17 +396,17 @@ Containers that store mappings between two sets of elements are called **maps**.
 Maps can be queried for their mappings using the **`[]`** operator, and just like regular mathematical functions, maps can be **composed** with each other, using the **`o`** operator (given that the domains and ranges of the arguments match appropriately).
 
 ```perl
->>> print f["One"]					                 # Maps can be queried this way.	
+>>> print f["One"]					                 # Maps can be queried this way.
 True
->>> map g : {1, 0} -> {"One", "Zero"}				
+>>> map g : {1, 0} -> {"One", "Zero"}
 >>> under g : 1 -> "One"
 >>> under g : 0 -> "Zero"
->>> print |g|                                        # Prints the number of mappings in the map.
+>>> print |g|                                # Prints the number of mappings in the map.
 2
 >>> let fog = f o g					                 # Let fog = the composition of maps f and g.
 >>> print fog
-{(1, True), (0, False)}				  
->>> let f o= g                                       # The compose-update. Equiv. to `f = f o g`.
+{(1, True), (0, False)}                      # Ordering not important
+>>> let f o= g                               # The compose-update. Equiv. to `f = f o g`.
 >>> print f[1]
 True
 ```
@@ -414,22 +416,22 @@ Autolang also supports the notion of __functional powers__. Maps are kind of a t
 For instance, for a map F, F<sup>3</sup> is equivalent to F o F o F ( i.e, F composed with itself twice).
 
 ```perl
->>> declare map fcube                                # Will be used for illustration.
->>> map f : {1, 2, 3} -> {1, 2, 3}                  
->>> under f : 1 -> 2
->>> under f : 2 -> 3
->>> under f : 3 -> 1
->>> print f
-{(1, 2), (2, 3), (3, 1)}
->>> let fcube = f ^ 3                                # `fcube` is the map `f` composed with itself once.
->>> print fcube
-{(1, 1), (2, 2), (3, 3)} 
->>> let f ^= 2                                       # The power update also works on maps. 
->>> print f
-{(1, 3), (2, 1), (3, 2)} 
+>>> declare map qube                                 # Will be used for illustration.
+>>> map q_ : {1, 2, 3} -> {1, 2, 3}
+>>> under q_ : 1 -> 2
+>>> under q_ : 2 -> 3
+>>> under q_ : 3 -> 1
+>>> print q_
+{(1, 2), (2, 3), (3, 1)}                              # Ordering not important
+>>> let qube = q_ ^ 3                                 # `qube` is the map `q_` composed with itself once.
+>>> print qube
+{(1, 1), (2, 2), (3, 3)}                              # Ordering not important
+>>> let q_ ^= 2                                       # The power update also works on maps.
+>>> print q_
+{(1, 3), (2, 1), (3, 2)}                              # Ordering not important
 ```
 
-Maps have many uses. For instance, they can be used to implement **associative arrays**. See the `Examples` directory for an example. 
+Maps have many uses. For instance, they can be used to implement **associative arrays**. See the `Examples` directory for an example.
 
 ### 3. Abstract Containers
 
@@ -438,9 +440,9 @@ Autolang has two abstract containers, **sets** and **maps**. Abstract containers
 
 #### a) Abstract Sets
 
-One very powerful concept Autolang supports is that of an **abstract set**. Unlike a normal set, an abstract set does not have fixed members, but rather, an *input format* and a  *membership criteria*. 
+One very powerful concept Autolang supports is that of an **abstract set**. Unlike a normal set, an abstract set does not have fixed members, but rather, an *input format* and a  *membership criteria*.
 
-The input format describes the structure of a generic element in/query on the set. The membership criteria is supposed to be a logical expression, which is evaluated for every query on the set when needed.  
+The input format describes the structure of a generic element in/query on the set. The membership criteria is supposed to be a logical expression, which is evaluated for every query on the set when needed.
 
 **Basic Syntax**
 
@@ -462,22 +464,22 @@ False
 The input format can be arbitrarily complex or deep, but must not contain any operators. Also, a placeholder will override an identifier if they have the same name.
 
 ```perl
->>> int l = 4000
->>> abstract set Test = { l | l < 2000 }
->>> print 3 in Test                                  # The local placeholder 'l' will override the int 'l'.
+>>> int ph = 4000
+>>> abstract set TestSet = { ph | ph < 2000 }
+>>> print 3 in TestSet                               # The local placeholder 'ph' will override the int 'ph'.
 True
 ```
 
-The format is also strictly binding, in that the program will raise an error (or sometimes, crash! _*_*gasp*_*_) if the input doesn't match. 
+The format is also strictly binding, in that the program will raise an error (or sometimes, crash! _*_*gasp*_*_) if the input doesn't match.
 
 If you get creative, there's a lot that suddenly became possible with abstract sets. For instance.
 
 ```perl
->>> set A = {1, 2, 3} 		                         # Autolang also supports the notion of 'abstract' sets.
->>> abstract set PowA = { elem | elem c A }          # Define the PowA as the power set of A.
->>> print {1, 3} in PowA
+>>> set AA = {1, 2, 3} 		                           # Autolang also supports the notion of 'abstract' sets.
+>>> abstract set PowAA = { elem | elem c AA }        # Define the PowA as the power set of A.
+>>> print {1, 3} in PowAA
 True
->>> print {1, 4} in PowA
+>>> print {1, 4} in PowAA
 False
 ```
 
@@ -486,7 +488,7 @@ False
 Most set operations will also work with abstract sets, except the **`[]`** operator (since an abstract set can be potentially uncountably infinite in size). However, an operation between an abstract set and a normal set is __not__ possible (for now), except a subset operation (which, (un)interestingly, cannot be performed on two abstract sets).
 
 ```perl
->>> abstract set Inter = PowA & EvenP               # Take the intersection of two abstract sets.
+>>> abstract set Inter = PowAA & EvenP              # Take the intersection of two abstract sets.
 >>> print {1, 2} in Inter
 True
 >>> print {1, 3} in Inter
@@ -506,24 +508,24 @@ If you take the keyword representing a data type and capitalize the first letter
 **Interesting**: The abstract set `ASet` is an abstract set containing all abstract sets. So, it contains itself!
 
 ```perl
->>> print ASet in ASet 
+>>> print ASet in ASet
 True
 ```
 
 We have established that certain objects can contain themselves. So what if we define a set as follows:
 
 ```perl
->>> abstract set S = { obj | ! (obj in obj) }  
+>>> abstract set S = { obj | ! (obj in obj) }
 ```
 
-`S` contains all objects that do not contain themselves. So, `ASet` would not be in `S`. But, 
+`S` contains all objects that do not contain themselves. So, `ASet` would not be in `S`. But,
 is `S` in `S`? Turns out, `S in S` ↔  `! (S in S)`.
 
 This is called [Russell's Paradox](https://en.wikipedia.org/wiki/Russell%27s_paradox), and the expression `S in S` results in a stack overflow in Autolang.
 
 #### b) Abstract Maps
 
-Just like abstract sets,  **abstract maps** do not store mappings, but rather, have an input format and a mapping scheme, which generate the image for an incoming pre-image query. 
+Just like abstract sets,  **abstract maps** do not store mappings, but rather, have an input format and a mapping scheme, which generate the image for an incoming pre-image query.
 
 **Basic Syntax**
 
@@ -548,7 +550,7 @@ The mapping scheme can include a recursive call to the map itself.
 
 We used a *conditional operator* **`?:`** in the `fact` map, which is the only ternary operator in Autolang. Abstract maps can be composed with the **`o`** operator and the **`o=`** updater too, but since the subset operation cannot be performed on their domains and codomains, any composition between two abstract maps is possible. However, a composition between an abstract and a normal map is not possible (for now).
 
-It's a good time to remember that abstract maps are also objects, just like regular maps, and hence can be part of sets and tuples. 
+It's a good time to remember that abstract maps are also objects, just like regular maps, and hence can be part of sets and tuples.
 
 **Operations and Updates**
 
@@ -569,13 +571,13 @@ Automata are the inspiration behind Autolang - both, the name as well as the lan
 
 #### a) DFA
 
-The keyword for **DFA** is **`auto`**. Since (deterministic finite) automata are formally describes as quintuples, the syntax reflects that. 
+The keyword for **DFA** is **`auto`**. Since (deterministic finite) automata are formally describes as quintuples, the syntax reflects that.
 
 **Basic Syntax**
 
 Typically before initializing an automaton, a lot of work needs to be done. An automaton M = (S, &Sigma;, s<sub>0</sub>, &delta;, A), where S is the set of states, &Sigma; is the input alphabet, s<sub>0</sub> is the starting state, &delta; is the transition function, and A is the set of accepting states.
 
-Let's write code to implement this automaton. 
+Let's write code to implement this automaton.
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  ![Bineven](https://github.com/TusharRakheja/Autolang/blob/master/Files/Other/Bineven.png)
@@ -591,7 +593,7 @@ Let's write code to implement this automaton.
 >>> under delta : ("0", '1') -> "1"                    # ... that are binary representations ...
 >>> under delta : ("1", '0') -> "0"                    # ... of even integers, and ...
 >>> under delta : ("1", '1') -> "1"                    # ... will reject all others.
->>> auto bineven = (states, sigma, states[0], delta, states[(2, 3)]) 
+>>> auto bineven = (states, sigma, states[0], delta, states[(2, 3)])
 ```
 
 **Operators and Updates**
@@ -603,7 +605,7 @@ Automata can be queried using the **`[]`** operator. Standard set operations, li
 True
 >>> print bineven["101"]                               # If a string is accepted, the result is True. Else False.
 False
->>> auto binodd = (states, sigma, states[0], delta, states[(1, 2)]) 
+>>> auto binodd = (states, sigma, states[0], delta, states[(1, 2)])
 >>> let binall = bineven U binodd                      # Let binall accept L(bineven) U L(binodd).
 >>> print binall["100"]
 True
@@ -611,7 +613,7 @@ True
 True
 ```
 
-The corresponding updates will also work, but it's hard to imagine when they'll ever be useful. 
+The corresponding updates will also work, but it's hard to imagine when they'll ever be useful.
 
 **Languages of Automata**
 
@@ -660,7 +662,7 @@ Printing out the source exhausts it. So we need to reset it before trying to rea
 >>> print !data                            # Prints True if the source is in an unreadable state.
 True
 >>> let data += 0                          # The += and -= operators offset the source by the specified number of bytes, and reset it if needed.
->>> print |data|                           # The source should now ready to read, from the very top. So the number of bytes we've already is 0.                     
+>>> print |data|                           # The source should now ready to read, from the very top. So the number of bytes we've already is 0.
 0
 >>> int readone <- data                    # Variables can be initialized directly with data coming from a source, using the `<-` updater.
 >>> print readone                          # The delimiter is not used when reading ints and chars.
@@ -668,7 +670,7 @@ True
 >>> let data[1] = '.'                      # The delimiter is a part of the source's tuple and can be accessed intuitively.
 >>> declare string sample                  # To read data into pre-existing variables,
 >>> get sample <- data                     # the '<-' updater can be used with the 'get' keyword.
->>> print sample                           # The delimiter is not read into the string, and the source moves past it. 
+>>> print sample                           # The delimiter is not read into the string, and the source moves past it.
  minute
 >>> let data -= |sample|                   # To re-read some data we just read, we can use the -= update to send the source back by some amount.
 >>> get sample <- data                     # And then simply read it again.
@@ -676,32 +678,32 @@ True
  minute
 >>> let data += 1                          # We can just skip/move past the '\n' in the file after '.'.
 >>> let data[1] = '\n'                     # The next data we read will be read till a newline.
->>> set newsample <- data                  # Sets can also be initialized with data coming in from a stream. 
+>>> set newsample <- data                  # Sets can also be initialized with data coming in from a stream.
 >>> print newsample
 {4, l}
->>> tuple another <- data                  # Tuples also, obviously. 
+>>> tuple another <- data                  # Tuples also, obviously.
 >>> print another
 (5, l)
 >>> let data[1] = '|'                      # Even though logicals 'can' be read in from sources, it's not advised. At all.
->>> logical true <- True                   # If you must, set the delimiter to something you're sure will give a clean literal.
+>>> logical true <- data                   # If you must, set the delimiter to something you're sure will give a clean literal.
 >>> print true                             # I suggest reading integers instead of logicals and casting.
 True
 >>> print |data|                           # Phew, we've read in 65 bytes of data!
-65
->>> quit                                   # Quitting is advisable. If you exit your terminal directly, the next time you source this file, it'll have weird bits. You'll need to reset it. 
+34
+>>> quit                                   # Quitting is advisable. If you exit your terminal directly, the next time you source this file, it'll have weird bits. You'll need to reset it.
 ```
 
-Now, what about writing to a file? We can do that with a **`sink`**. A sink has a much simpler interface, no new updaters. It's a 3-tuple - The first element is the filepath. The second element is True if the existing data in the file needs to be preserved, and False otherwise. The third element is True if the objects to be written to the file will be in their 'raw' form, and False otherwise. 
+Now, what about writing to a file? We can do that with a **`sink`**. A sink has a much simpler interface, no new updaters. It's a 3-tuple - The first element is the filepath. The second element is True if the existing data in the file needs to be preserved, and False otherwise. The third element is True if the objects to be written to the file will be in their 'raw' form, and False otherwise.
 
 **Basic Syntax, Operators and Updates: Sink**
 
 ```perl
->>> sink data = ("data.txt", True, False)  # (filepath, append?, raw print?)
->>> string putdata = "\nSee?"              # We'll append this string to the file.
->>> let data += putdata                    # Print the string in it's processed format.
->>> let data[2] = True                     # Set the raw flag to True.
->>> let data += putdata                    # Now the string will be written in it's raw format. 
->>> quit                                   # And that's it! Sinks offer only this interfact for now.
+>>> sink data_out = ("data.txt", True, False)      # (filepath, append?, raw print?)
+>>> string putdata = "\nSee?"                      # We'll append this string to the file.
+>>> let data_out += putdata                        # Print the string in it's processed format.
+>>> let data_out[2] = True                         # Set the raw flag to True.
+>>> let data_out += putdata                        # Now the string will be written in it's raw format.
+>>> quit                                           # And that's it! Sinks offer only this interfact for now.
 ```
 
 After this, the file will look like this:
@@ -726,7 +728,7 @@ However, **console sourcing** is a new thing we haven't talked about. In interac
 
 #### c) Strings as Sources
 
-Strings are not sources (no mutual **`=`** updates possible), but they can be used as sources. 
+Strings are not sources (no mutual **`=`** updates possible), but they can be used as sources.
 
 **Basic Syntax**
 
@@ -735,8 +737,8 @@ Strings are not sources (no mutual **`=`** updates possible), but they can be us
 >>> int getnum <- num
 >>> print getnum
 123
->>> char getch <- num      # Semantically equivalent to char getch = num[0] 
->>> print getch           
+>>> char getch <- num      # Semantically equivalent to char getch = num[0]
+>>> print getch
 1
 >>> logical g1 <- num      # True iff the source string 'contains' "True".
 >>> print g1
@@ -749,34 +751,37 @@ Though Autolang is not pure functional language, it does support a variety of fu
 
 #### a) λ Expressions
 
-Lambda expressions (λs) in Autolang are denoted with the **`::`** symbol. Their syntax comprises of an input format and a mapping scheme, just like an abstract map. In fact, internally, they are treated like abstract map 'literals', if you will. 
+Lambda expressions (λs) in Autolang are denoted with the **`::`** symbol. Their syntax comprises of an input format and a mapping scheme, just like an abstract map. In fact, internally, they are treated like abstract map 'literals', if you will.
 
 ```perl
->>> print :: (a, b) -> a + b ::[(9, 9)]        
+>>> print :: (a, b) -> a + b ::[(9, 9)]
 18
 ```
 
 Using the **`let`** keyword, we can bind λs to existing abstract map identifiers.
 
 ```perl
->>> declare abstract map add
->>> let add = :: (a, b) -> a + b ::
->>> print add[("Brooklyn", " Nine-Nine")]             
->>> Brooklyn Nine-Nine
+>>> declare abstract map add_lambda
+>>> let add_lambda = :: (a, b) -> a + b ::
+>>> print add_lambda[("Brooklyn", " Nine-Nine")]
+Brooklyn Nine-Nine
 ```
 
-#### b) Higher-order Functions 
+#### b) Higher-order Functions
 
 Higher-order functions are functions that can take one or more functions as arguments.
 
-As a demonstration of Autolang's functional capabilities, I've implemented two higher-order functions typically found in functional languages, namely **map** (as **`apply`**), and **reduce** (as **`fold`**). **`apply`** takes a map and applies it to every member of a set, and **`fold`** takes a binary operator-map and 'folds' or 'reduces' all the set members under that operator. 
+As a demonstration of Autolang's functional capabilities, I've implemented two higher-order functions typically found in functional languages, namely **map** (as **`apply`**), and **reduce** (as **`fold`**). **`apply`** takes a map and applies it to every member of a set, and **`fold`** takes a binary operator-map and 'folds' or 'reduces' all the set members under that operator.
 
 ```perl
+>>> declare abstract maps add, mult
+>>> under add : (a, b) -> a + b
+>>> under mult : (a, b) -> a * b
 >>> print fold[(add, {1, 2, 3, 4})]               # computes 1 + 2 + 3 + 4.
 10
 >>> print fold[(mult, {1, 2, 3, 4})]              # computes 1 * 2 * 3 * 4.
 24
->>> print apply[(:: n -> n ^ 2 ::, {1, 2, 3, 4})] # A λ in place of a map will do just fine. 
+>>> print apply[(:: n -> n ^ 2 ::, {1, 2, 3, 4})] # A λ in place of a map will do just fine.
 {1, 4, 9, 16}
 ```
 
@@ -787,11 +792,11 @@ Their implementation has been left as an ... nah, I wouldn't do that. I hate it.
 >>> under fold : (am, s) -> (|s| == 1) ? (s[0]) : (am[(s[0], fold[(am, s[(1, |s|)])])])
 ```
 
-They do come built-in with the interpreter though, so you won't need to write them again. Another criteria for higher-order functions is sometimes said to be that they return a function. That's not a problem, since that can be done. 
+They do come built-in with the interpreter though, so you won't need to write them again. Another criteria for higher-order functions is sometimes said to be that they return a function. That's not a problem, since that can be done.
 
 ```perl
 >>> declare abstract map binop
->>> under binop : name -> (name == "mult") ? mult : ::(a, b) -> a + b:: 
+>>> under binop : name -> (name == "mult") ? mult : ::(a, b) -> a + b::
 >>> print binop["mult"][(3, 3)]
 9
 >>> print binop["dflt"][(3, 3)]      # A lambda expression can be returned as well.
@@ -802,7 +807,7 @@ They do come built-in with the interpreter though, so you won't need to write th
 
 This one is more subtle and kind of indirect. It is *possible* to write purely pure functions (maps) in Autolang, if you:
 
-1. *Only use literals or immutable copies with the domain and codomain.* 
+1. *Only use literals or immutable copies with the domain and codomain.*
 
    This means writing ```f : {1, 2} -> {3, 4}``` or `.A -> .B` over `A -> B`. This way, the domain and codomain of `f` will be unaffected by any changes that happen to A or B over the course of the program, or
 
@@ -832,17 +837,17 @@ s -> (|s| == 1) ? { unpack[s[0]] } : ({ unpack[s[0]] } U unpackall[s[(1, |s|)]])
 Clearly, the file contains mapping schemes for abstract maps. We can use these to make maps in Autolang. Here's how.
 
 ```perl
->>> source maps = ("unpack.txt", '\n')           # Open file.
->>> string junk <- maps                          # Eat comments and blank lines.
->>> let maps[1] = ';'                            # Now it's time to read a scheme.
->>> abstract map unpack <- maps                  # Make an abstract map using the scheme.
->>> let maps[1] = '\n'                           # Time to read more junk.
->>> get junk <- maps                             # Eat the '\n' after the previous ';'
->>> get junk <- maps                             # Eat the blank line.
->>> get junk <- maps                             # Eat the comment.
->>> let maps[1] = ';'                            # Time to read another scheme.
->>> abstract map unpackall <- maps               # Make the map.
->>> print unpack[(1, (2, 3))]                    # Time to test, yay!
+>>> source maps_src = ("unpack.txt", '\n')           # Open file.
+>>> string junk <- maps_src                          # Eat comments and blank lines.
+>>> let maps_src[1] = ';'                            # Now it's time to read a scheme.
+>>> abstract map unpack <- maps_src                  # Make an abstract map using the scheme.
+>>> let maps_src[1] = '\n'                           # Time to read more junk.
+>>> get junk <- maps_src                             # Eat the '\n' after the previous ';'
+>>> get junk <- maps_src                             # Eat the blank line.
+>>> get junk <- maps_src                             # Eat the comment.
+>>> let maps_src[1] = ';'                            # Time to read another scheme.
+>>> abstract map unpackall <- maps_src               # Make the map.
+>>> print unpack[(1, (2, 3))]                        # Time to test, yay!
 (1, 2, 3)
 >>> print unpackall[{1, 2} x {'A', 'B'} x {True}]
 {(1, A, True), (1, B, True), (2, A, True), (2, B, True)}
@@ -863,14 +868,14 @@ Operators in Autolang are *always* right-associative by default. There is no con
 More generally, a thing to keep in mind is that though Autolang tries to approximate mathematical notation wherever possible, certain expressions *may* be tricky. For instance:
 
 ```perl
->>> set P = {1, 2} x {'a', 'b'} x {True}    # We have tuples of the form (e, (f, g)), not (e, f, g) as expected.
->>> print P
+>>> set Prod = {1, 2} x {'a', 'b'} x {True}    # We have tuples of the form (e, (f, g)), not (e, f, g) as expected.
+>>> printr Prod
 {(1, ('a', True)), (1, ('b', True)), (2, ('a', True)), (2, ('b', True))}
->>> print |(P[0])|                                                         # Will not print 3, but 2.
+>>> print |(Prod[0])|                          # Will not print 3, but 2.
 2
 ```
 
-Depending on your moral values and whether or not you believe there is any justice in the world, this may or may not have been what you expected. But for now, this is the result. 
+Depending on your moral values and whether or not you believe there is any justice in the world, this may or may not have been what you expected. But for now, this is the result.
 
 We can adjust this particular result using the `unpack` map mentioned in [*`Data as Code`*](#7-data-as-code). Likewise, we may have to come up with such 'hacks' every now and then.
 
@@ -879,19 +884,19 @@ Autolang is imperfect. The parser is brittle, there are memory leaks etc. But pe
 ### Future Plans
 
  * [ ] Lexical scoping.
- 
+
  * [ ] Support for graphics.
- 
+
  * [ ] Support for modularity.
- 
+
 ### Completed
 
  * [x] Abstract Maps.
- 
+
  * [x] λ Expressions.
 
  * [x] Abstract Sets.
- 
+
  * [x] Automatic memory management.
 
 ### License

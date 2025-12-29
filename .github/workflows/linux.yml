@@ -40,7 +40,43 @@ jobs:
           diff out.txt Tests/expected/Fibonacci.txt
 
           ./auto Examples/MapTest.al > out.txt
-          python Tests/scripts/check_map_test_output.py out.txt
+          python Tests/scripts/checks/check_map_test_output.py out.txt
 
           ./auto Examples/Sort.al > out.txt
           diff out.txt Tests/expected/Sort.txt
+
+      - name: Set up REPL examples tests
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          REPL_GROUPS="$(python Tests/scripts/setup/setup_repl_tests.py)"
+          echo "repl_groups=$REPL_GROUPS"
+
+          if ! [[ "$REPL_GROUPS" =~ ^[0-9]+$ ]]; then
+            echo "ERROR: REPL_GROUPS is not numeric: $REPL_GROUPS" >&2
+            exit 1
+          fi
+
+          echo "REPL_GROUPS=$REPL_GROUPS" >> "$GITHUB_ENV"
+
+      - name: Run REPL tests
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "repl_groups=$REPL_GROUPS"
+          : > repl_out.txt
+
+          for i in $(seq 1 "$REPL_GROUPS"); do
+            f="repl_${i}.al"
+            [[ -f "$f" ]] || { echo "ERROR: Missing file $f" >&2; exit 1; }
+            echo "Running $f"
+            ./auto < "$f" >> repl_out.txt
+          done
+
+      - name: Verify results of REPL tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          python Tests/scripts/checks/check_repl_tests_results.py

@@ -15,7 +15,7 @@ public:
 	Set(vector<shared_ptr<Elem>> *);		// It is possible to initialize a set with an existing vector (Copy pointers).
 	Set(vector<shared_ptr<Elem>> *, int);		// It is possible to initialize a set with an existing vector (Direct assign).
 	Set(string &);					// Construct a set using a string representation of it.
-	int cardinality();				// Returns the cardinality of the set.	
+	int cardinality();				// Returns the cardinality of the set.
 	shared_ptr<Set> cartesian_product(Set &);	// Returns the cartesian product of this set and the other set.
 	shared_ptr<Elem> deep_copy();			// Returns a new set which is a deep_copy of this set.
 	shared_ptr<Set> exclusion(Set &);		// Returns a set containing elements of this, minus those of the argument.

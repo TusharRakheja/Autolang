@@ -8,7 +8,7 @@
 /* Implementations for the methods in the AbstractSet class. */
 
 // Updates all holders in criteria1 and criteria2, and unpacks them into their respective vectors.
-void update_unpack_criteria(const string & criteria1, const string & criteria2, vector<string> & criteria1parts, vector<string> & criteria2parts)
+void update_unpack_criteria(const string & criteria1, const string & criteria2, vector<string> & criteria1parts, vector<string> & criteria2parts, string& input_format_1, string& input_format_2)
 {
 	vector<string> * criteria = &criteria2parts;		// Will point to criteria2parts first, and then criteria1parts.
 	string x = criteria2;
@@ -36,7 +36,9 @@ void update_unpack_criteria(const string & criteria1, const string & criteria2, 
 				int j = i;
 				while (isalnum(x[j]) || x[j] == '_') j++;
 				string candidate_holder = x.substr(i, j - i);
-				if (!(*program_vars::keyword_ops)[candidate_holder]) // If this is not an operator or keyword.
+				if (!(*program_vars::keyword_ops)[candidate_holder] && (
+					((extension == 1) ? input_format_2 : input_format_1).find(candidate_holder) != string::npos
+				)) // If this is not an operator or keyword.
 				{
 					//cout << x.substr(start, i - start);
  					criteria->push_back(x.substr(start, i - start));
@@ -188,7 +190,7 @@ shared_ptr<AbstractSet> AbstractSet::cartesian_product(AbstractSet &other)	// Re
 	// Now for all a in the keys of this->holder_value_pairs, replace a with a1.
 	vector<string> criteria1parts;				// The parts of this criteria. We'll update the holders in it.
 	vector<string> criteria2parts;				// The parts of other's criteria. We'll update the holders in it.
-	update_unpack_criteria(this->criteria, other.criteria, criteria1parts, criteria2parts);
+	update_unpack_criteria(this->criteria, other.criteria, criteria1parts, criteria2parts, this->input_format, other.input_format);
 	cart_p->criteria = "(";
 	for (int i = 0; i < criteria1parts.size(); i++)
 		cart_p->criteria += criteria1parts[i];
@@ -225,7 +227,7 @@ shared_ptr<AbstractSet> AbstractSet::exclusion(AbstractSet &exclude)	// Returns 
 	// Now for all a in the keys of this->holder_value_pairs, replace a with a1.
 	vector<string> criteria1parts;				// The parts of this criteria. We'll update the holders in it.
 	vector<string> criteria2parts;				// The parts of other's criteria. We'll update the holders in it.
-	update_unpack_criteria(this->criteria, exclude.criteria, criteria1parts, criteria2parts);
+	update_unpack_criteria(this->criteria, exclude.criteria, criteria1parts, criteria2parts, this->input_format, exclude.input_format);
 	exclusive->criteria = "(";
 	for (int i = 0; i < criteria1parts.size(); i++)
 		exclusive->criteria += criteria1parts[i];
@@ -314,7 +316,7 @@ bool AbstractSet::has(Elem &query)				// Returns true if the argument elem fulfi
 	string to_be_evaluated = "";
 	for (int i = 0; i < criteriaparts.size(); i++)
 		to_be_evaluated += criteriaparts[i];
-	
+
 	//cout << "Evaluating: " << to_be_evaluated << endl;
 
 	ExpressionTree eval(to_be_evaluated);
@@ -348,7 +350,7 @@ shared_ptr<AbstractSet> AbstractSet::intersection(AbstractSet &with) // Returns 
 	// Now for all a in the keys of this->holder_value_pairs, replace a with a1.
 	vector<string> criteria1parts;				// The parts of this criteria. We'll update the holders in it.
 	vector<string> criteria2parts;				// The parts of other's criteria. We'll update the holders in it.
-	update_unpack_criteria(this->criteria, with.criteria, criteria1parts, criteria2parts);
+	update_unpack_criteria(this->criteria, with.criteria, criteria1parts, criteria2parts, this->input_format, with.input_format);
 	intersect->criteria = "(";
 	for (int i = 0; i < criteria1parts.size(); i++)
 		intersect->criteria += criteria1parts[i];
@@ -384,7 +386,7 @@ shared_ptr<AbstractSet> AbstractSet::_union(AbstractSet &with) 	// Returns a set
 	// Now for all a in the keys of this->holder_value_pairs, replace a with a1.
 	vector<string> criteria1parts;				// The parts of this criteria. We'll update the holders in it.
 	vector<string> criteria2parts;				// The parts of other's criteria. We'll update the holders in it.
-	update_unpack_criteria(this->criteria, with.criteria, criteria1parts, criteria2parts);
+	update_unpack_criteria(this->criteria, with.criteria, criteria1parts, criteria2parts, this->input_format, with.input_format);
 	unified->criteria = "(";
 	for (int i = 0; i < criteria1parts.size(); i++)
 		unified->criteria += criteria1parts[i];
@@ -392,7 +394,7 @@ shared_ptr<AbstractSet> AbstractSet::_union(AbstractSet &with) 	// Returns a set
 	for (int i = 0; i < criteria2parts.size(); i++)
 		unified->criteria += criteria2parts[i];
 	unified->criteria += ")";
-	
+
 	unified->input_format = "";
 	unified->input_format += this->input_format;
 	unified->input_format += " = ";

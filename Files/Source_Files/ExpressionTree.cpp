@@ -15,12 +15,12 @@ using program_vars::keyword_ops;
 
 // -----------------------------------------------------<CLASS TOKEN>------------------------------------------//
 
-string token_name[] = 
+string token_name[] =
 {
-	"INT_LIT", "LOGICAL_LIT", "CHAR_LIT", "STRING_LIT", "SET_LIT", "ABSTRACT_SET_LIT", "TUPLE_LIT", 
-	"ABSTRACT_MAP_LIT", "LITERAL", "INDEX", "IDENTIFIER", "OP", "UNARY", "END", "ERROR", "EXPR", 
-	"TYPE", "MAPPING_SYMBOL", "SOURCE_OP", "PRINT", "IF", "ELSEIF", "ELSE", "WHILE", "DECLARE", 
-	"L_BRACE", "UPDATE_OP", "GET", "R_BRACE", "QUIT", "DELETE", "DELETE_ELEMS", "MAP_OP", 
+	"INT_LIT", "LOGICAL_LIT", "CHAR_LIT", "STRING_LIT", "SET_LIT", "ABSTRACT_SET_LIT", "TUPLE_LIT",
+	"ABSTRACT_MAP_LIT", "LITERAL", "INDEX", "IDENTIFIER", "OP", "UNARY", "END", "ERROR", "EXPR",
+	"TYPE", "MAPPING_SYMBOL", "SOURCE_OP", "PRINT", "IF", "ELSEIF", "ELSE", "WHILE", "DECLARE",
+	"L_BRACE", "UPDATE_OP", "GET", "R_BRACE", "QUIT", "DELETE", "DELETE_ELEMS", "MAP_OP",
 	"COLON", "LET", "UNDER", "ABSTRACT", "PRINTR", "MULTITYPE", "COMMA", "AND"
 };
 
@@ -40,36 +40,36 @@ string Token::to_string()
 
 shared_ptr<Elem> Node::parse_literal()		// Parses the token.lexeme to get a value, if the lexeme is a literal.
 {
-	if (this->token.types[0] != LITERAL) 
-		return nullptr;			// If the token is not a literal, ignore it. 
-	
-	if (this->token.types[1] == INT_LIT)			
+	if (this->token.types[0] != LITERAL)
+		return nullptr;			// If the token is not a literal, ignore it.
+
+	if (this->token.types[1] == INT_LIT)
 		return shared_ptr<Elem>{new Int(token.lexeme)};
 
-	if (this->token.types[1] == CHAR_LIT)			
+	if (this->token.types[1] == CHAR_LIT)
 		return shared_ptr<Elem>{new Char(token.lexeme)};
 
 	if (this->token.types[1] == LOGICAL_LIT)
 		return shared_ptr<Elem>{new Logical(token.lexeme)};
-		
+
 	if (this->token.types[1] == STRING_LIT)
 		return shared_ptr<Elem>{new String(token.lexeme, 0)};	// The 0 => the string being passed is a representation of the object.
 									// (as opposed to its value).
 	if (this->token.types[1] == SET_LIT)
 		return shared_ptr<Elem>{new Set(token.lexeme)};
-	
+
 	if (this->token.types[1] == TUPLE_LIT)
 		return shared_ptr<Elem>{new Tuple(token.lexeme)};
 
 	if (this->token.types[1] == ABSTRACT_SET_LIT)
 		return shared_ptr<Elem>{new AbstractSet(token.lexeme)};
-	
+
 	if (this->token.types[1] == ABSTRACT_MAP_LIT)
-	{	
+	{
 		string lambda = token.lexeme.substr(2, token.lexeme.size() - 4);
 		return shared_ptr<Elem>{new AbstractMap(lambda)};
 	}
-	
+
 	return nullptr;
 }
 
@@ -79,16 +79,16 @@ shared_ptr<Elem> Node::parse_literal()		// Parses the token.lexeme to get a valu
 // -------------------------------------------------<CLASS EXPRESSIONTREE>--------------------------------------//
 
 void ExpressionTree::skip_whitespace()
-{								
-	while ((current_index < expr.size()) && (isspace(expr[current_index])))	
+{
+	while ((current_index < expr.size()) && (isspace(expr[current_index])))
 	{
-		current_index++;				
+		current_index++;
 	}
 }
 
 shared_ptr<Elem> ExpressionTree::evaluate()
 {
-	if (node->value != nullptr) 
+	if (node->value != nullptr)
 		return node->value;				// Will be triggered in case of literals and identifiers.
 
 	if (node->token.types[0] == OP)				// If the node is an op.
@@ -107,7 +107,7 @@ shared_ptr<Elem> ExpressionTree::evaluate()
 			{
 				shared_ptr<Elem> argument = node->left->evaluate();
 				if (argument->type == INT)
-				{	
+				{
 					shared_ptr<Int> absolute_value = integer(argument);
 					node->value = shared_ptr<Int>{new Int(
 						(absolute_value->elem < 0) ? -absolute_value->elem : absolute_value->elem
@@ -166,7 +166,7 @@ shared_ptr<Elem> ExpressionTree::evaluate()
 				{
 					shared_ptr<Char> negate_this = character(negate);
 					node->value = shared_ptr<Logical>{new Logical(!negate_this->elem)};
-				}	
+				}
 				else if (negate->type == INT)
 				{
 					shared_ptr<Int> negate_this = integer(negate);
@@ -224,7 +224,7 @@ shared_ptr<Elem> ExpressionTree::evaluate()
 				}
 				else if (left->type == LOGICAL)
 				{
-					shared_ptr<Logical> l_logical = logical(left); 
+					shared_ptr<Logical> l_logical = logical(left);
 					if (l_logical->elem)
 					{
 						node->value = shared_ptr<Logical>{new Logical(true)};
@@ -304,7 +304,7 @@ shared_ptr<Elem> ExpressionTree::evaluate()
 						else raise_error("Expected a logical (or another primitive) expression for the \"&\" operation");
 					}
 				}
-				else 
+				else
 				{
 					shared_ptr<Elem> right = node->right->evaluate();
 					if (left->type == ABSTRACT_SET && right->type == ABSTRACT_SET)
@@ -393,7 +393,7 @@ shared_ptr<Elem> ExpressionTree::evaluate()
 				{
 					if (left->type == CHAR)
 					{
-						node->value = shared_ptr<Logical> { 
+						node->value = shared_ptr<Logical> {
 							new Logical (
 								str(right)->elem.find (
 									character(left)->elem
@@ -998,17 +998,17 @@ shared_ptr<Elem> ExpressionTree::evaluate()
 				shared_ptr<Elem> g = node->right->evaluate();
 				if (f->type == MAP && g->type == MAP)
 					node->value = map(f)->composed_with(*map(g));
-					
+
 				else if (f->type == ABSTRACT_MAP && g->type == ABSTRACT_MAP)
 					node->value = amap(f)->composed_with(amap(g));
-				
+
 				else raise_error("Expected map or abstract map objects for a \"o\" operation.");
 			}
 			else if (node->token.lexeme == "c")
 			{
 				shared_ptr<Elem> f = node->left->evaluate();
 				shared_ptr<Elem> g = node->right->evaluate();
-				if (f->type == SET && g->type == SET) 
+				if (f->type == SET && g->type == SET)
 				{
 					node->value = shared_ptr < Logical > {
 						new Logical (
@@ -1038,7 +1038,7 @@ shared_ptr<Elem> ExpressionTree::evaluate()
 				else if (left->type == ABSTRACT_SET && right->type == ABSTRACT_SET)
 					node->value = aset(left)->cartesian_product(
 						*aset(right)
-					); 
+					);
 
 				else raise_error("Expected set or abstract set objects for a \"x\" operation.");
 			}
@@ -1098,7 +1098,7 @@ shared_ptr<Elem> ExpressionTree::evaluate()
 					shared_ptr<Tuple> q = _tuple(query);
 					shared_ptr<Int> start = integer((*q)[0]);
 					shared_ptr<Int> end = integer((*q)[1]);
-					node->value = e->subset(start->elem, end->elem);				
+					node->value = e->subset(start->elem, end->elem);
 				}
 				else if (elem->type == ABSTRACT_MAP)
 				{
@@ -1220,18 +1220,18 @@ shared_ptr<Elem> ExpressionTree::evaluate()
 				{
 					shared_ptr<String> l_str = str(left);
 					if (right->type == STRING)
-					{	
+					{
 						shared_ptr<String> r_str = str(right);
 						string concat_combine = l_str->elem;
 						concat_combine += r_str->elem;
 						return shared_ptr<String>{new String(concat_combine)};
 					}
 					else if (right->type == CHAR)
-					{	
+					{
 						shared_ptr<Char> r_char = character(right);
 						string char_append = l_str->elem;
 						char_append += r_char->elem;
-						return shared_ptr<String>{new String(char_append)}; 
+						return shared_ptr<String>{new String(char_append)};
 					}
 					else raise_error("Expected a string or a char for a \"+\" operation with a string.");
 				}
@@ -1653,14 +1653,14 @@ Token ExpressionTree::get_next_token()				// The limited lexical analyzer to par
 					if (expr[i] == '\'' && !in_char && !in_string) in_char = true;
 				}
 				else if (((expr[i] == '"' && in_string) || (expr[i] == '\'' && in_char))
-					&& 
+					&&
 					(i == 0 || (expr[i - 1] != '\\' || (expr[i - 1] == '\\' && i - 2 >= 0 && expr[i - 2] == '\\')))) {
 					if (expr[i] == '"' && in_string) in_string = false;
 					if (expr[i] == '\'' && in_char) in_char = false;
 				}
 			}
 			if (!closing_doublecolon_found) return{ "", {ERROR} };
-			else 
+			else
 			{	int j = current_index;
 				current_index = i;
 				return{ expr.substr(j, i - j), { LITERAL, ABSTRACT_MAP_LIT } };
@@ -1695,7 +1695,7 @@ Token ExpressionTree::get_next_token()				// The limited lexical analyzer to par
 		return{ "!", { OP, UNARY } };
 	}
 
-	else if (expr[current_index] == 'V' && ((current_index + 1) < expr.size()) 
+	else if (expr[current_index] == 'V' && ((current_index + 1) < expr.size())
 		&& !isalnum(expr[current_index + 1]) && expr[current_index + 1] != '_')
 	{
 		current_index++;
@@ -1708,7 +1708,7 @@ Token ExpressionTree::get_next_token()				// The limited lexical analyzer to par
 		return{ "==", { OP } };
 	}
 
-	else if (expr[current_index] == 'i' && ((current_index + 1) < expr.size()) && expr[current_index + 1] == 'n' 
+	else if (expr[current_index] == 'i' && ((current_index + 1) < expr.size()) && expr[current_index + 1] == 'n'
 	&& ((current_index + 2) < expr.size()) && !isalnum(expr[current_index + 2]) && expr[current_index + 2] != '_')
 	{
 		current_index += 2;
@@ -1765,25 +1765,25 @@ Token ExpressionTree::get_next_token()				// The limited lexical analyzer to par
 	//---------------------------------------------</SET OP>----------------------------------------------//
 
 	//--------------------------------------------<LITERALS>----------------------------------------------//
-	
-	else if (isdigit(expr[current_index]) || 
+
+	else if (isdigit(expr[current_index]) ||
 		(expr[current_index] == '-' && current_index + 1 < expr.size() && isdigit(expr[current_index + 1]))) // Int literal.
-	{                                         
+	{
 		int i = current_index + 1;				// Start looking one space ahead of the current_index ...
 		while (i < expr.size() && isdigit(expr[i]))		// ... and while you're finding more digits ...
 			i++;						// ... keep looking.
 		int j = current_index;					// Store the current_index, because it is about to be updated.
 		current_index = i;					// Update the current index.
 		return{ expr.substr(j, i-j), { LITERAL, INT_LIT} };     // Return a token initializer list with the int_literal lexeme.
-	} 		                          
-	
+	}
+
 	else if (expr[current_index] == 'T' && current_index + 3 < expr.size() && expr.substr(current_index, 4) == "True"
 		&& (current_index + 4 >= expr.size() || (!isalnum(expr[current_index + 4]) && expr[current_index + 4] != '_'))
 	)
 	{
 		current_index += 4;
-		return{ "True", { LITERAL, LOGICAL_LIT} };					
-	}  
+		return{ "True", { LITERAL, LOGICAL_LIT} };
+	}
 	else if (expr[current_index] == 'F' && current_index + 4 < expr.size() && expr.substr(current_index, 5) == "False"
 		&& (current_index + 5 >= expr.size() || (!isalnum(expr[current_index + 5]) && expr[current_index + 5] != '_'))
 	)
@@ -1801,8 +1801,8 @@ Token ExpressionTree::get_next_token()				// The limited lexical analyzer to par
 		}
 		else if (current_index + 3 < expr.size() && expr[current_index + 1] == '\\' && expr[current_index + 3] == '\'')
 		{
-			int j = current_index;		
-			current_index += 4;	
+			int j = current_index;
+			current_index += 4;
 			return{ expr.substr(j, 4), { LITERAL, CHAR_LIT } };
 		}
 		else return{ "", {ERROR} };
@@ -1819,7 +1819,7 @@ Token ExpressionTree::get_next_token()				// The limited lexical analyzer to par
 	}
 	else if (expr[current_index] == '{')			// Abstract Set and Set literals.
 	{
-		int i = current_index;			
+		int i = current_index;
 		string rest_of_expr = expr.substr(i + 1);				// Because we'll need this many times.
 		if (!program_vars::exists_at_level_0(rest_of_expr, !ANY, '}', DUMMYv))  // We'll look for the closing '}' now.
 			return{ "", {ERROR} };
@@ -1836,14 +1836,14 @@ Token ExpressionTree::get_next_token()				// The limited lexical analyzer to par
 		}
 
 		bool pipe_at_zero = program_vars::exists_at_level_0(rep.substr(1), !ANY, '|', DUMMYv);
-		if (!pipe_at_zero) 
+		if (!pipe_at_zero)
 			return{ rep, { LITERAL, SET_LIT } };
-		// Get the part between '{' and '|', and if is empty or has any operator tokens, it's a SET_LIT. 
+		// Get the part between '{' and '|', and if is empty or has any operator tokens, it's a SET_LIT.
 		int pipe_pos = program_vars::find_at_level_0(rep.substr(1), !ANY, '|', DUMMYv);
 		string last_check = rep.substr(1, pipe_pos);
-		if (last_check.empty())		
+		if (last_check.empty())
 			return{ rep, { LITERAL, SET_LIT } };
-		
+
 		string find_in = rep.substr(1, pipe_pos);
 
 		if (program_vars::exists_at_level_0(find_in, ANY, DUMMYc, op_signs_set))
@@ -1905,7 +1905,7 @@ Token ExpressionTree::get_next_token()				// The limited lexical analyzer to par
 		current_index = j + 1;							// The next lexeme starts after ']'
 		return{ expr.substr(i + 1, j - i - 1), { INDEX } };
 	}
-	
+
 	else if (isalpha(expr[current_index]) || expr[current_index] == '_')	// Parsing identifier.
 	{
 		int i = current_index + 1;					// Going to look for the end of this identifier.
@@ -1988,11 +1988,11 @@ Token ExpressionTree::get_next_token()				// The limited lexical analyzer to par
  *                 | typeof <expr>              # Type getter.
  *		   | <expr> <op> <expr>		# Every op basically.
  *		   | <expr>[<expr>]		# Set, Tuple, String, Map, Auto query/access.
- *		   | <term>			
- *		
+ *		   | <term>
+ *
  *	<term> -->   <identifier>
 		   | <literal>
- */	
+ */
 
 ExpressionTree::ExpressionTree(string &expr)
 {
@@ -2090,7 +2090,7 @@ ExpressionTree::ExpressionTree(string &expr)
 		};
 		bool rest_empty = true;
 		for (char c : rest) if (!isspace(c)) { rest_empty = false; break; }
-		if (rest_empty) 						
+		if (rest_empty)
 		{
 			node = new Node();
 			node->operator_node = true;
@@ -2117,13 +2117,13 @@ ExpressionTree::ExpressionTree(string &expr)
 	}
 	/*
 	 *	<expr> --> (<expr>)
-	 */ 
-	if (t1.types[0] == EXPR)							
+	 */
+	if (t1.types[0] == EXPR)
 	{
 		node = new Node();				// Make a node node to hold the operator.
 		node->operator_node = true;			// Mark it as an operator node.
-		node->token = Token{ "()", {OP, UNARY, EXPR} }; // Let it hold the token. 
-		//cout << "ComputingE: " << t1.lexeme << endl; 
+		node->token = Token{ "()", {OP, UNARY, EXPR} }; // Let it hold the token.
+		//cout << "ComputingE: " << t1.lexeme << endl;
 		node->left = new ExpressionTree(t1.lexeme);	// Let the left parse the <expr> in (<expr>).
 		return;
 	}
@@ -2135,14 +2135,14 @@ ExpressionTree::ExpressionTree(string &expr)
 		node->token = t1;
 		//cout << "ComputingI: " << t1.lexeme << endl;
 		int look_in_scope = program_vars::scope_level;
-		unordered_map<string, shared_ptr<Elem>> * look_in = program_vars::identify; 
+		unordered_map<string, shared_ptr<Elem>> * look_in = program_vars::identify;
 		while (look_in_scope >= 0 && (*look_in)[t1.lexeme] == nullptr)
 		{
 			look_in_scope--;
 			look_in = &(*program_vars::scopewise_identifiers)[look_in_scope];
 		}
-	
-		if (look_in_scope < 0) 
+
+		if (look_in_scope < 0)
 		{
 			string err = "No identifier ";
 			err += t1.lexeme;

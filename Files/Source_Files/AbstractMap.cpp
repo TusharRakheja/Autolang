@@ -29,15 +29,15 @@ void AbstractMap::parse_holder_value_pairs(string &x, string &parent)
 		start++;
 		for (int i = start; i < x.size(); i++)
 		{
-			if (x[i] == closing_char && level == 0)   
-			{ 
+			if (x[i] == closing_char && level == 0)
+			{
 				int j = i - 1;
 				while (isspace(x[j])) j--;
 				while (isspace(x[start])) start++;
 				if (x.substr(start, j - start + 1) != "")		// If the trimmed representation isn't empty.
-				{	
+				{
 					holders.push_back(x.substr(start, i - start));	// Push it to the vector of representations
-				}				
+				}
 				break;
 			}
 			else if (x[i] == '{' || x[i] == '(') level++;
@@ -117,8 +117,8 @@ AbstractMap::AbstractMap(shared_ptr<AbstractSet> domain, shared_ptr<AbstractSet>
 }
 
 AbstractMap::AbstractMap(shared_ptr<AbstractSet> domain, shared_ptr<AbstractSet> codomain, string &format_and_scheme) : Elem(ABSTRACT_MAP)
-{	
-	this->domain = domain; 
+{
+	this->domain = domain;
 	this->codomain = codomain;
 	input_format = format_and_scheme.substr(0, format_and_scheme.find("->"));
 	mapping_scheme = format_and_scheme.substr(format_and_scheme.find("->") + 2);
@@ -129,7 +129,7 @@ AbstractMap::AbstractMap(shared_ptr<AbstractSet> domain, shared_ptr<AbstractSet>
 shared_ptr<AbstractMap> AbstractMap::composed_with(shared_ptr<AbstractMap> g)	// Returns an abstract_map (this composed with g).
 {
 	// For the comments that follow, this == f. Just for convenience, really.
-	
+
 	// under f : elem -> f[elem], where f[elem] represents some transformation.
 	// under g : elem -> g[elem], where g[elem] represents some other transformation.
 	// We need to return f o g. under f o g : elem -> f[g[elem]]
@@ -190,7 +190,7 @@ shared_ptr<Elem> AbstractMap::operator[](Elem & pre_image)
 					schemeparts.push_back(x.substr(start, i - start));
 					string holder_value = holder_value_pairs[holder];
 
-					holder_value = holder_value.substr(0, holder_value.find("(x)")) + 
+					holder_value = holder_value.substr(0, holder_value.find("(x)")) +
 						pre_image.to_string_eval() +
 					holder_value.substr(holder_value.find("(x)") + 3);
 
@@ -215,7 +215,7 @@ shared_ptr<Elem> AbstractMap::operator[](Elem & pre_image)
 	//cout << "Evaluating: " << to_be_evaluated << endl;
 	ExpressionTree eval(to_be_evaluated);
 	shared_ptr<Elem> image = eval.evaluate();
-	if (codomain != nullptr && !codomain->has(*image)) program_vars::raise_error("Mapping unsuccessful. Image not found in domain."); 
+	if (codomain != nullptr && !codomain->has(*image)) program_vars::raise_error("Mapping unsuccessful. Image not found in domain.");
 	return image;
 }
 

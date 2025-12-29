@@ -30,8 +30,8 @@ Set::Set(string &x) : Elem(SET)					// Construct a set using a string representa
 {
 	this->elems = new vector<shared_ptr<Elem>>;
 	int start = 0;
-	vector<string> elements;			// We're going to extract e1, e2 ... out of x = "{ e1, e2, ... }".	
-	while (x[start] != '{')	start++;		// Look for the set's opening brace.	
+	vector<string> elements;			// We're going to extract e1, e2 ... out of x = "{ e1, e2, ... }".
+	while (x[start] != '{')	start++;		// Look for the set's opening brace.
 	start++;
 	while (isspace(x[start])) start++;		// Once we've found the opening brace, remove the extra space before the first element.
 	if (x[start] == '}') return;
@@ -40,7 +40,7 @@ Set::Set(string &x) : Elem(SET)					// Construct a set using a string representa
 	for (int i : program_vars::findall_at_level_0(x.substr(start), ANY, DUMMYc, delims))
 	{
 		int j = i + st;					// Store the position of the comma.
-		while (isspace(x[j - 1])) j--;			// Work back from there, to get a trimmed representation. 
+		while (isspace(x[j - 1])) j--;			// Work back from there, to get a trimmed representation.
 		string elem = x.substr(start, j - start);
 		if (!elem.empty())				// If the trimmed representation isn't empty.
 			elements.push_back(elem);		// Push it to the vector of representations
@@ -49,26 +49,26 @@ Set::Set(string &x) : Elem(SET)					// Construct a set using a string representa
 		if (x[start] == '}') break;
 	}
 	for (auto &rep : elements) // An important thing to remember is that, the elements can still be expressions.
-	{	
+	{
 		bool seeing_expr = program_vars::find_at_level_0(rep, ANY, DUMMYc, op_signs_set);
-		if (seeing_expr) 
+		if (seeing_expr)
 		{
 			ExpressionTree expr(rep);
-			this->elems->push_back(expr.evaluate());			
+			this->elems->push_back(expr.evaluate());
 		}
-		else 
+		else
 		{
 			if (rep[0] == '{')				// If the element to be parsed is a set or an abstract set...
 			{
 				int i = 0;
 				bool set_literal = false;
 				bool pipe_at_zero = program_vars::exists_at_level_0(rep.substr(1), !ANY, '|', DUMMYv);
-				if (!pipe_at_zero) // If a '|' doesn't exist in the candidate_lit ... 
+				if (!pipe_at_zero) // If a '|' doesn't exist in the candidate_lit ...
 				{
 					this->elems->push_back(shared_ptr<Elem>{new Set(rep)});
 					continue;
 				}
-				// Get the part between '{' and '|', and if is empty or has any operator tokens, it's a SET_LIT. 
+				// Get the part between '{' and '|', and if is empty or has any operator tokens, it's a SET_LIT.
 				string last_check = rep.substr(1, program_vars::find_at_level_0(rep.substr(1), !ANY, '|', DUMMYv));
 				if (last_check.empty())
 				{
@@ -108,7 +108,7 @@ Set::Set(string &x) : Elem(SET)					// Construct a set using a string representa
 				}
 				if (!set_literal) this->elems->push_back(shared_ptr<Elem>{new AbstractSet(rep)});
 			}
-			else if (rep[0] == '(')				
+			else if (rep[0] == '(')
 				this->elems->push_back(shared_ptr<Elem>{new Tuple(rep)});
 			else if (isdigit(rep[0]))
 				this->elems->push_back(shared_ptr<Elem>{new Int(rep)});
@@ -123,7 +123,7 @@ Set::Set(string &x) : Elem(SET)					// Construct a set using a string representa
 				string lambda = rep.substr(2, rep.size() - 4);
 				this->elems->push_back(shared_ptr<Elem>{new AbstractMap(lambda)});
 			}
-			else    	
+			else
 			{	// Surely an identifier.
 				ExpressionTree expr(rep);
 				this->elems->push_back(expr.evaluate());
@@ -143,8 +143,8 @@ shared_ptr<Set> Set::cartesian_product(Set &other)	// Returns the cartesian prod
 	for (auto &elem_p1 : *elems)				   // For every element_pointer in the vector of element_pointers in this set ...
 		for (auto &elem_p2 : *(other.elems))		   // ... taken with every element pointer in the vector of element_pointers in the other ...
 			product->elems->push_back(		   // ... <convoluted_code> Push into the cartesian_product (cart) ...
-			shared_ptr<Elem> { new Tuple (		   // ... a pointer to a Tuple object, that is ... 
-				new vector < shared_ptr<Elem> > {  // ... constructed using a vector initialized with ...    
+			shared_ptr<Elem> { new Tuple (		   // ... a pointer to a Tuple object, that is ...
+				new vector < shared_ptr<Elem> > {  // ... constructed using a vector initialized with ...
 					elem_p1, elem_p2	   // ... elem_p1 and elem_p2 ...
 				},
 				DIRECT_ASSIGN			   // ... and is directly assigned to the Tuple.
@@ -156,14 +156,14 @@ shared_ptr<Elem> Set::deep_copy()				// Returns a new set which is a deep-copy o
 {
 	shared_ptr<Set> clone = shared_ptr<Set>{new Set};	// Make an empty clone set.
 	for (auto &elem_p1 : *elems)				// For every element_pointer in the vector of element_pointers in this set ...
-		clone->elems->push_back(elem_p1->deep_copy());  // ... push into the clone, a deep_copy of the object pointed to by the pointer. 
+		clone->elems->push_back(elem_p1->deep_copy());  // ... push into the clone, a deep_copy of the object pointed to by the pointer.
 	return clone;						// Return a pointer to the clone.
 }
 
-shared_ptr<Set> Set::exclusion(Set &exclude)		// Returns a set containing the elements of this set, minus those of the argument. 
+shared_ptr<Set> Set::exclusion(Set &exclude)		// Returns a set containing the elements of this set, minus those of the argument.
 {
 	shared_ptr<Set> exclusive = shared_ptr<Set>{new Set};	// Make an empty set.
-	for (auto &elem_p1 : *elems)				// For every (any) element_pointer in the vector of element_pointers in this ...  
+	for (auto &elem_p1 : *elems)				// For every (any) element_pointer in the vector of element_pointers in this ...
 		if (!exclude.has(*elem_p1))			// ... if the element it points to is not present in the set to be excluded ...
 			exclusive->elems->push_back(elem_p1);   // ... then add a pointer to that element in the exclusive set.
 	return exclusive;
@@ -180,7 +180,7 @@ bool Set::has(Elem &elem)			// Looks for an element in the set.
 bool Set::homoset()				// Returns true if every element of this set has the same type.
 {
 	if (this->cardinality() == 0)		// Vacuously true.
-		return true;	
+		return true;
 
 	Type candidate_homotype = (*(this->elems))[0]->type; // The type of the first element in the set.
 	for (auto &elem_p1 : *elems)			     // For every (any) element_pointer in the vector of element_pointers in this set...
@@ -207,19 +207,19 @@ shared_ptr<Set> Set::intersection(Set &other)		// Intersection with a second set
 
 const shared_ptr<Elem> Set::operator[](int index) const	// R-value access.
 {
-	return (*elems)[index];			// Return a reference to an element pointed to by the element_pointer at index. 
+	return (*elems)[index];			// Return a reference to an element pointed to by the element_pointer at index.
 }
 
 shared_ptr<Elem> Set::operator[](int index)	// L-value access.
 {
-	return (*elems)[index];			// Return an element_pointer at index.     
+	return (*elems)[index];			// Return an element_pointer at index.
 }
 
 bool Set::operator==(Elem &other_set)           // Checks two sets for equality.
 {
 	if (other_set.type != SET) return false;
 	Set *other = (Set *)&other_set;
-	if (cardinality() != other->cardinality())   // If the cardinalities are different ... 
+	if (cardinality() != other->cardinality())   // If the cardinalities are different ...
 		return false;                        // ... then they are obviously not equal.
 	return this->subset_of(*other);              // But if they are the same, then if either is a subset of the other, they indeed are equal.
 }

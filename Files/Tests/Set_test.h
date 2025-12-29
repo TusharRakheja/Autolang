@@ -14,7 +14,7 @@ namespace Set_test
 {
 	using std::cout;
 	using std::endl;
-	
+
 	void build_AB(Set * & A, Set * & B)
 	{
 		cout << "\n----------- Constructing frequently used Sets A and B. -------------\n\n";
@@ -57,7 +57,7 @@ namespace Set_test
 		cout << "A & B = " << AandB->to_string() << endl << endl;
 		delete A_, B_, AandB;
 	}
-	
+
 	void cartesian_product(Set * & A, Set * & B)
 	{
 		Set * A_ = (Set *)A->deep_copy();
@@ -94,9 +94,9 @@ namespace Set_test
 		Set D(new vector<Elem *>{ new Int(27), new Char('6'), new Int(1996) });
 
 		cout << C.to_string();
-		if (C.homoset()) 
-			cout << " is a homoset with homotype " << C.homotype() << endl; 
-		else 
+		if (C.homoset())
+			cout << " is a homoset with homotype " << C.homotype() << endl;
+		else
 			cout << " is not a homoset" << endl;
 
 		cout << D.to_string();
@@ -108,11 +108,11 @@ namespace Set_test
 
 	void subset(Set * & A, Set * & B)
 	{
-		
+
 		cout << "A[0, 2] = " << A->subset(0, 2)->to_string() << endl;
 		cout << "B[1, 4] = " << B->subset(1, 4)->to_string() << endl << endl;
 	}
-	
+
 	void subset_of()
 	{
 		cout << "\n------------- Testing the subset_of() method for Sets. -----------\n\n";
@@ -130,21 +130,21 @@ namespace Set_test
 	{
 		cout << "\n---------------- Testing the == operator for Sets. --------------\n\n";
 		Set I(new vector<Elem *> {
-			new Int(1), 
+			new Int(1),
 			new Tuple(new vector<Elem *>{ new String("Yo") }),
 			new Logical(true),
 			new String("INTJ"),
 			new Char('T')
 		});
-		Set J(new vector<Elem *> { 
-			new Int(1), 
+		Set J(new vector<Elem *> {
+			new Int(1),
 			new Tuple(new vector<Elem *>{ new String("Yo") }),
 			new Logical(true),
 			new String("INTJ"),
 			new Char('T')
 		});
 		Set K(new vector<Elem *>{
-			new Int(1), 
+			new Int(1),
 			new Tuple(new vector<Elem *>{ new String("Yp") }),
 			new Logical(true),
 			new String("INTJ"),
@@ -153,7 +153,7 @@ namespace Set_test
 		cout << I.to_string() << " == " << J.to_string() << " = " << (I == J) << endl;
 		cout << I.to_string() << " == " << K.to_string() << " = " << (I == K) << endl << endl;
 	}
-	
+
 	void test_all()
 	{
 		Set * A = nullptr, * B = nullptr;

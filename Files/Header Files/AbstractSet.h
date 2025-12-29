@@ -17,14 +17,14 @@ public:
 	AbstractSet(const char *);				   // Construct with a cstring representing the criteria.
 	shared_ptr<AbstractSet> cartesian_product(AbstractSet &);  // Returns the cartesian product of this set and the other set.
 	shared_ptr<Elem> deep_copy()				   // Return a new set with the same criteria.
-	{ 
+	{
 		string crit_copy = "{ ";
 		crit_copy += input_format;
 		crit_copy += " | ";
 		crit_copy += criteria;
 		crit_copy += " }";
-		return shared_ptr<Elem>{new AbstractSet(crit_copy)}; 
-	} 
+		return shared_ptr<Elem>{new AbstractSet(crit_copy)};
+	}
 	void parse_holder_value_pairs(string &, string &);
 	void add_criteria(string &);
 	shared_ptr<AbstractSet> exclusion(AbstractSet &);	   // Returns a set containing elements of this, minus those of the argument.

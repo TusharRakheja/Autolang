@@ -25,9 +25,9 @@ public:
 	}
 
 	shared_ptr<Elem> deep_copy()				// Since String is an atomic data type, a deep copy is very simple.
-	{ 
-		return shared_ptr<Elem> {new String(elem)}; 
-	} 
+	{
+		return shared_ptr<Elem> {new String(elem)};
+	}
 
 	string to_string_raw()					// The string representation of a string is the string itself (in quotes).
 	{

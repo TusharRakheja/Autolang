@@ -36,8 +36,59 @@ jobs:
           fc out.txt Tests\expected\Fibonacci.txt || exit /b 1
 
           auto.exe Examples\MapTest.al > out.txt
-          python Tests/scripts/check_map_test_output.py out.txt
+          python Tests/scripts/checks/check_map_test_output.py out.txt
           if %ERRORLEVEL% neq 0 exit /b 1
 
           auto.exe Examples\Sort.al > out.txt
           fc out.txt Tests\expected\Sort.txt || exit /b 1
+
+      - name: Set up REPL examples tests
+        shell: cmd
+        run: |
+          @echo off
+
+          rem Get number of REPL groups from Python (script should print ONLY the count)
+          for /f %%G in ('python Tests\scripts\setup\setup_repl_tests.py') do set "GROUPS=%%G"
+
+          echo groups=%GROUPS%
+
+          if not defined GROUPS (
+            echo ERROR: Failed to get group count from Python.
+            exit /b 1
+          )
+
+          rem Sanity check: GROUPS is numeric
+          for /f "delims=0123456789" %%A in ("%GROUPS%") do (
+            echo ERROR: GROUPS is not numeric: %GROUPS%
+            exit /b 1
+          )
+
+          >>"%GITHUB_ENV%" echo GROUPS=%GROUPS%
+
+      - name: Run REPL tests
+        shell: cmd
+        run: |
+          @echo off
+
+          echo groups=%GROUPS%
+
+          rem Loop through repl_1.al ... repl_N.al
+          for /L %%I in (1,1,%GROUPS%) do (
+            if not exist "repl_%%I.al" (
+              echo ERROR: Missing file repl_%%I.al
+              exit /b 1
+            )
+            echo Running repl_%%I.al
+            auto.exe < "repl_%%I.al" >> "repl_out.txt"
+            if errorlevel 1 (
+              echo ERROR: auto.exe failed on repl_%%I.al
+              exit /b 1
+            )
+          )
+
+      - name: Verify results of REPL tests
+        shell: cmd
+        run: |
+          python Tests\scripts\checks\check_repl_tests_results.py
+          if %ERRORLEVEL% neq 0 exit /b 1
+

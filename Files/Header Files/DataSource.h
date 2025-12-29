@@ -20,12 +20,12 @@ public:
 
 	DataSource(const char * filepath, shared_ptr<Char> delimiter) : Elem(DATASOURCE)
 	{
-		elem = shared_ptr<ifstream>{new ifstream(filepath)};
+		elem = shared_ptr<ifstream>{new ifstream(filepath, std::ios::binary)};
 		if (!*elem) program_vars::raise_error("Failed to open file.");
 		this->delimiter = delimiter;
 	}
 
-	DataSource(int console, shared_ptr<Char> delimiter) : Elem(DATASOURCE) 
+	DataSource(int console, shared_ptr<Char> delimiter) : Elem(DATASOURCE)
 	{
 		elem = shared_ptr<istream>{&std::cin};
 		this->delimiter = delimiter;
@@ -36,7 +36,7 @@ public:
 	shared_ptr<Elem> deep_copy()
 	{
 		shared_ptr<DataSource> copy = shared_ptr<DataSource>{new DataSource()};
-		copy->elem = this->elem; 
+		copy->elem = this->elem;
 		copy->delimiter = character(copy->delimiter->deep_copy());
 		return copy;
 	}

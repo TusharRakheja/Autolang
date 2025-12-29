@@ -9,3 +9,10 @@ Examples/NiceTest.al
 *.exe
 auto
 .vscode
+temp.bat
+temp.sh
+data.txt
+repl_1.al
+repl_2.al
+repl_3.al
+unpack.txt

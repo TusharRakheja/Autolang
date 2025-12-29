@@ -1,4 +1,4 @@
-#ifndef MAP_H 
+#ifndef MAP_H
 #define MAP_H
 
 #include "Set.h"
@@ -29,7 +29,7 @@ public:
 	const shared_ptr<Elem>operator[](Elem &) const;	// Returns the image of the pre-image [R-value].
 	bool operator==(Elem &);			// Compares this to another map.
 	shared_ptr<Set> range();			// Returns the range of the ordered map.
-	string to_string();				// Returns a string representation of the map. 
+	string to_string();				// Returns a string representation of the map.
 	string to_string_raw();				// Returns a raw_string representation of the map.
 	~Map();						// Destructor.
 };

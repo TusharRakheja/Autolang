@@ -39,8 +39,8 @@ namespace Auto_test
 		String A_im135(*(String *)(*states_A)[0]);
 		String A_im246(*(String *)(*states_A)[1]);
 
-		delta_A->add_maping(A_preim1, A_im135);		// delta_A("20", '0') = "20" 
-		delta_A->add_maping(A_preim2, A_im246);		// delta_A("20", '1') = "21" 
+		delta_A->add_maping(A_preim1, A_im135);		// delta_A("20", '0') = "20"
+		delta_A->add_maping(A_preim2, A_im246);		// delta_A("20", '1') = "21"
 		delta_A->add_maping(A_preim3, A_im135);		// delta_A("21", '0') = "20"
 		delta_A->add_maping(A_preim4, A_im246);		// delta_A("21", '1') = "21"
 		delta_A->add_maping(A_preim5, A_im135);		// delta_A("\",  '0') = "20"
@@ -58,9 +58,9 @@ namespace Auto_test
 		String B_im147(*(String *)(*states_B)[0]);
 		String B_im258(*(String *)(*states_B)[1]);
 		String B_im36 (*(String *)(*states_B)[2]);
-		
+
 		delta_B->add_maping(B_preim1, B_im147);		// delta_B("0", '0') = "0"
-		delta_B->add_maping(B_preim2, B_im258);		// delta_B("0", '1') = "1" 
+		delta_B->add_maping(B_preim2, B_im258);		// delta_B("0", '1') = "1"
 		delta_B->add_maping(B_preim3, B_im36 );		// delta_B("1", '0') = "2"
 		delta_B->add_maping(B_preim4, B_im147);		// delta_B("1", '1') = "0"
 		delta_B->add_maping(B_preim5, B_im258);		// delta_B("2", '0') = "1"
@@ -103,7 +103,7 @@ namespace Auto_test
 		cout << "A U B accepts \"011\" == " << AUB->accepts(q4).to_string() << endl;	// Should be true.
 		delete _A, _B, AUB;
 	}
-	
+
 	void test_AandB(Auto * & A, Auto * & B)
 	{
 		cout << "\n\n-------------------Running queries on A & B------------------\n" << endl;
@@ -111,7 +111,7 @@ namespace Auto_test
 		Auto * _A = (Auto *)A->deep_copy();
 		Auto * _B = (Auto *)B->deep_copy();
 		Auto * AandB = _A->accepts_intersection(B);
-		cout << "A & B accepts \"100\" == " << AandB->accepts(q3).to_string() << endl;	// Should be false. 
+		cout << "A & B accepts \"100\" == " << AandB->accepts(q3).to_string() << endl;	// Should be false.
 		cout << "A & B accepts \"011\" == " << AandB->accepts(q4).to_string() << endl;	// Should be false.
 		cout << "A & B accepts \"110\" == " << AandB->accepts(q5).to_string() << endl;  // Should be true.
 		delete _A, _B, AandB;

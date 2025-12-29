@@ -23,14 +23,24 @@ public:
 			elem = shared_ptr<ofstream>{new ofstream(filepath, ios::app)};
 		else
 			elem = shared_ptr<ofstream>{new ofstream(filepath)};
-			
+
 		if (!*elem) program_vars::raise_error("Failed to open file.");
 
-		this->append = append; 
+		this->append = append;
 		this->raw = raw;
 	}
 
 	DataSink() : Elem(DATASINK) { }
+
+	void write(shared_ptr<Elem> value)
+	{
+		if (this->raw->elem)
+			*this->elem << value->to_string_raw();
+		else
+			*this->elem << value->to_string();
+
+		this->elem->flush();
+	}
 
 	shared_ptr<Elem> deep_copy()
 	{
@@ -42,7 +52,7 @@ public:
 	}
 	shared_ptr<Logical> operator[](int always1or2)
 	{
-		if (always1or2 != 1 && always1or2 != 2) 
+		if (always1or2 != 1 && always1or2 != 2)
 			program_vars::raise_error("The sink's only accessible members are the 'append' and 'raw' flags, at indices 1 and 2 respectively.");
 		if (always1or2 == 1) return append;
 		else return raw;
@@ -63,7 +73,7 @@ public:
 	{
 		if (elem != nullptr) elem->close();
 	}
-	
+
 };
 
 #endif

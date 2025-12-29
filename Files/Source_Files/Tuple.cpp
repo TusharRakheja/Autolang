@@ -26,15 +26,15 @@ Tuple::Tuple(string &x) : Elem(TUPLE)				// Construct a set using a string repre
 {
 	elems = new vector < shared_ptr<Elem> >;
 	int start = 0;
-	vector<string> elements;			// We're going to extract e1, e2 ... out of x = "{ e1, e2, ... }".	
-	while (x[start] != '(')	start++;		// Look for the tuple's opening parenthesis.	
+	vector<string> elements;			// We're going to extract e1, e2 ... out of x = "{ e1, e2, ... }".
+	while (x[start] != '(')	start++;		// Look for the tuple's opening parenthesis.
 	start++;
 	int st = start;
 	vector<char> delims{{ ',', ')' }};
 	for (int i : program_vars::findall_at_level_0(x.substr(start), ANY, DUMMYc, delims))
 	{
 		int j = i + st;					// Store the position of the comma.
-		while (isspace(x[j - 1])) j--;			// Work back from there, to get a trimmed representation. 
+		while (isspace(x[j - 1])) j--;			// Work back from there, to get a trimmed representation.
 		string elem = x.substr(start, j - start);
 		if (!elem.empty())				// If the trimmed representation isn't empty.
 			elements.push_back(elem);		// Push it to the vector of representations
@@ -55,16 +55,16 @@ Tuple::Tuple(string &x) : Elem(TUPLE)				// Construct a set using a string repre
 		else
 		{
 			if (rep[0] == '{')						// If the element to be parsed is a set ...
-			{	
+			{
 				int i = 0;
 				bool set_literal = false;
 				bool pipe_at_zero = program_vars::exists_at_level_0(rep.substr(1), !ANY, '|', DUMMYv);
-				if (!pipe_at_zero) // If a '|' doesn't exist in the candidate_lit ... 
+				if (!pipe_at_zero) // If a '|' doesn't exist in the candidate_lit ...
 				{
 					this->elems->push_back(shared_ptr<Elem>{new Set(rep)});
 					continue;
 				}
-				// Get the part between '{' and '|', and if is empty or has any operator tokens, it's a SET_LIT. 
+				// Get the part between '{' and '|', and if is empty or has any operator tokens, it's a SET_LIT.
 				string last_check = rep.substr(1, program_vars::find_at_level_0(rep.substr(1), !ANY, '|', DUMMYv));
 				if (last_check.empty())
 				{
@@ -143,7 +143,7 @@ shared_ptr<Elem> Tuple::deep_copy()				// Returns a tuple which is a deep_copy o
 }
 
 bool Tuple::has(Elem &elem)				// Checks if a certain element is present in the tuple.
-{	
+{
 	for (auto &elem_p1 : *elems)				// For every (any) element_pointer in the vector of element_pointers in this ...
 		if (*elem_p1 == elem)				// ... if the element pointed to by it is equal to the query element, ...
 			return true;				// ... return true.
@@ -152,7 +152,7 @@ bool Tuple::has(Elem &elem)				// Checks if a certain element is present in the 
 
 const shared_ptr<Elem> Tuple::operator[](int index) const       // R-value access.
 {
-	return (*elems)[index];					// Return a reference to an element pointed to by the element_pointer at index. 
+	return (*elems)[index];					// Return a reference to an element pointed to by the element_pointer at index.
 }
 
 shared_ptr<Elem> Tuple::operator[](int index)			// L-value access.
@@ -160,11 +160,11 @@ shared_ptr<Elem> Tuple::operator[](int index)			// L-value access.
 	return (*elems)[index];					// Return a reference to an element pointed to by the element_pointer at index.
 }
 
-bool Tuple::operator==(Elem &other_tuple)			// Checks two tuples for equality.	
+bool Tuple::operator==(Elem &other_tuple)			// Checks two tuples for equality.
 {
 	if (other_tuple.type != TUPLE) return false;
 	Tuple *other = (Tuple *)&other_tuple;
-	if (size() != other->size())				// If the sizes are different ... 
+	if (size() != other->size())				// If the sizes are different ...
 		return false;					// ... then they are obviously not equal.
 	for (int i{ 0 }; i < size(); i++)			// So the sizes of the tuples are the same. Now if at any index i ...
 		if (!(*(*elems)[i] == *(*other->elems)[i]))	// ... the elements in the two tuples are different, then ...

@@ -93,7 +93,7 @@ namespace Tuple_test
 	void test_all()
 	{
 		Tuple * A, * B;
-		build_AB(A, B);	
+		build_AB(A, B);
 		size(A, B);
 		contains(A), equality();
 		deep_copy(A);

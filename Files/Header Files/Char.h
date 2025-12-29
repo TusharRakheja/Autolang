@@ -14,7 +14,7 @@ public:
 
 	Char(char c) : Elem(CHAR) { this->elem = c; }					// Parametrized constructor.
 
-	Char(string &c) : Elem(CHAR) 
+	Char(string &c) : Elem(CHAR)
 	{
 		if (c.size() == 3) { this->elem = c[1]; return; }
 		if (c[1] == '\\')							// Construct a char object using a string rep of it.

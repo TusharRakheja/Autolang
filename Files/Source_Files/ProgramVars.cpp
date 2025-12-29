@@ -182,7 +182,7 @@ std::vector<char> program_vars::DUMMYv { {} };
 std::vector<char> program_vars::op_signs_set { // These characters will signify the presence of an operator.
 	'+', '-', '*', '/', '^', '%', '\\', '.', 'U', 'i', '|', 't',
 	'?', 'V', '&', '=', '!', '<', '>', 'o', 'c', 'x', '[', '!'
-}; // Just the first (often the only) characters in the operators. 
+}; // Just the first (often the only) characters in the operators.
 
 std::vector<char> program_vars::op_signs_set_VERBOSE {
 	'i', 'U', '?', 'V', 'o', 'c', 'x', 't'

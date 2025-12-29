@@ -19,7 +19,7 @@ Map::Map(shared_ptr<Set> domain_s, shared_ptr<Set> codomain_s) : Elem(MAP)	// Pa
 void Map::add_maping(Elem &pre_image, Elem &image)	// Adds a mapping from the left element to the right under this map.
 {
 	if (!domain_s->has(pre_image) || !codomain_s->has(image))
-		return; 
+		return;
 
 	int pre_image_index {0}, image_index {0};
 
@@ -59,7 +59,7 @@ shared_ptr<Map> Map::composed_with(Map &other_map)	// Returns a reference to a m
 				mid_image_index++;		// ... otherwise look at the next element_pointer.
 		(*fog->_map)[index.first] = (*this->_map)[mid_image_index];
 	}
-	return fog;							     // Return the composition.		
+	return fog;							     // Return the composition.
 }
 
 shared_ptr<Set> Map::codomain() { return codomain_s; }		// Returns a pointer to the codomain set.
@@ -118,7 +118,7 @@ bool Map::operator==(Elem &elem)			// Compares this to another map.
 {
 	if (elem.type != MAP) return false;		// Return false if the type of the element isn't MAP.
 
-	Map * other_map = (Map *)&elem;			// Now we can cast the map. 
+	Map * other_map = (Map *)&elem;			// Now we can cast the map.
 
 	if (*other_map->domain_s == *this->domain_s &&		// Maps are only equal if they have the same domain ...
 	    *other_map->codomain_s == *this->codomain_s &&	// ... the same co-domain ...
@@ -132,16 +132,16 @@ shared_ptr<Set> Map::range()					// The set of all values in the codomain that a
 {
 	shared_ptr<Set> x { new Set() };				        // Make a new empty set.
 	for (auto &mapping : *this->_map)				// For every (pre_image_index,image_index) pair in the set ...
-		x->elems->push_back((*codomain_s)[mapping.second]);	// ... put the element in the codomain at the image_index  
+		x->elems->push_back((*codomain_s)[mapping.second]);	// ... put the element in the codomain at the image_index
 	return x;
 }
 
 string Map::to_string()					// The virtual to_string() method for display.
 {
-	string representation = "{";	
+	string representation = "{";
 	int i{ 0 };
 	for (auto &index : *_map)
-	{		
+	{
 		representation += "(";
 		representation += domain_s->operator[](index.first)->to_string();   // Recursive, awesome representations. ;)
 		representation += ", ";
@@ -174,6 +174,6 @@ string Map::to_string_raw()					// The virtual to_string() method for display.
 
 Map::~Map()
 {
-	if (_map != nullptr) delete _map; 
+	if (_map != nullptr) delete _map;
 	if (pi_indices != nullptr) delete pi_indices;
 }

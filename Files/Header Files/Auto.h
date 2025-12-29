@@ -3,13 +3,13 @@
 
 #include "Map.h"
 
-#define mytuple std::tuple<shared_ptr<Set>,shared_ptr<Set>,shared_ptr<Elem>,shared_ptr<Map>> 
+#define mytuple std::tuple<shared_ptr<Set>,shared_ptr<Set>,shared_ptr<Elem>,shared_ptr<Map>>
 
 #define automaton static_pointer_cast<Auto>
 
 class Auto : public Elem			 // DFA.
 {
-private: 
+private:
 	shared_ptr<mytuple> make_super_automata(shared_ptr<Auto>); // Makes the states = Q1 x Q2, and M((q1, q2), c) = (M1(q1, c), M2(q2, c)).
 public:
 	shared_ptr<Set> sigma;			 // The alphabet of the automaton. (Homotype == Character).
@@ -17,7 +17,7 @@ public:
 	shared_ptr<Map> delta;			 // The transition function from sigma to states.
 	shared_ptr<Elem> start;			 // The label of (or tuples of labels for) the starting state.
 	shared_ptr<Set> accepting;		 // The set of accepting states (labels thereof).
-					
+
 	Auto() : Elem(AUTO) { delta = nullptr; sigma = states = accepting = nullptr; start = nullptr; }
 	Auto(shared_ptr<Set>, shared_ptr<Set>, shared_ptr<Elem>, shared_ptr<Map>, shared_ptr<Set>);		// Constructor (Copy elements).
 	Auto(shared_ptr<Set>, shared_ptr<Set>, shared_ptr<Elem>, shared_ptr<Map>, shared_ptr<Set>, int);	// Constructor (Direct assign).

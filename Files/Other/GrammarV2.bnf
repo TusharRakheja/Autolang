@@ -3,10 +3,10 @@
 
 <Program> --> <statements>
 
-<statements> -->   <statement> 
+<statements> -->   <statement>
 		 | <statement> <statements>					# COVERED
 
-<statement> -->   <assignment> 									
+<statement> -->   <assignment>
 		| <initialization>						# COVERED
 		| <declaration>							# COVERED
 		| <input>							# COVERED
@@ -16,7 +16,7 @@
 
 <assignment> -->   <identifier> = <expr>
 
-<expr> -->   (<expr>) 
+<expr> -->   (<expr>)
            | <elem>
 
 <declaration> -->   string <identifier>[1] 					# COVERED
@@ -28,13 +28,13 @@
 		  | auto <identifier>[7] 					# COVERED
 		  | map <identifier> : <set> --> <set> [8]			# COVERED
 
-	AF:       <identifier>[1].type = string, 
-		  <identifier>[2].type = set, 
-		  <identifier>[3].type = char, 
-		  <identifier>[4].type = int, 
-		  <identifier>[5].type = tuple, 
+	AF:       <identifier>[1].type = string,
+		  <identifier>[2].type = set,
+		  <identifier>[3].type = char,
+		  <identifier>[4].type = int,
+		  <identifier>[5].type = tuple,
 		  <identifier>[6].type = logical,
-		  <identifier>[7].type = automaton, 
+		  <identifier>[7].type = automaton,
 		  <identifier>[8].type = map
 
 <initialization> -->      string <identifier>[1] = <expr>[1]	     						 # COVERED
@@ -43,21 +43,21 @@
 			| int <identifier>[4] = <expr>[4]							 # COVERED
 			| tuple <identifier>[5] = <expr>[5]							 # COVERED
 			| logical <identifier>[6] = <expr>[6]							 # COVERED
-			| auto <identifier>[7] = (<expr>[7], <expr>[8], <expr>[9], <map>, <expr>[10]) 		 # COVERED  				
+			| auto <identifier>[7] = (<expr>[7], <expr>[8], <expr>[9], <map>, <expr>[10]) 		 # COVERED
 			| map <identifier>[8] : <map>								 # COVERED
 
 	 P:		<expr>[1].type = string, <expr>[2].type  = set
 			<expr>[3].type = char,   <expr>[4].type  = int
 			<expr>[5].type = tuple,  <expr>[6].type  = logical
 			<expr>[7].type = set,    <expr>[8].type  = set
-			<expr>[9].type = string, <expr>[10].type = set 
+			<expr>[9].type = string, <expr>[10].type = set
 
-			<expr>[7] is a homoset of chars, and <expr>[8] is a homoset of strings. 
+			<expr>[7] is a homoset of chars, and <expr>[8] is a homoset of strings.
 			<expr>[10] is a subset of <expr>[8].
-			
+
 	AF:		<identifier>[7].type = automaton
 			<identifier>[8].type = map
-			# Other attribute evaluations are obvious.	
+			# Other attribute evaluations are obvious.
 
 
 <elem_list> -->  <elem> | <elem>, <elem_list>
@@ -78,7 +78,7 @@
 	P:	<identifier>.type == automaton
 
 <input> --> input(<identifier>)
-	
+
 <output> --> print(<string>)
 
 ################################################### MAP OPERATIONS ###############################################
@@ -94,9 +94,9 @@
 <map_range> --> <map>.range
 
 <map_compose> --> <map> o <map>
-	
+
 <mappings> --> <mapping> | <mapping><mappings>
-	       		
+
 <mapping> --> <elem> --> <elem>
 
 
@@ -114,7 +114,7 @@
 	P:	<elem>.type == set
 
 
-<set_identity> -->   { <elem_list> } 
+<set_identity> -->   { <elem_list> }
 	           | <indentifier>
 
 	P:	<indentifier>.type == set
@@ -122,13 +122,13 @@
 
 <union> -->  <set> <union_tail>
 
-	  
+
 <union_tail> -->   U <set>
 		 | U <set> <union_tail>
 
 
 <intersection> -->   <set> <intersection_tail>
-	
+
 
 <intersection_tail> -->   & <set>
 			| & <set> <inteection_tail>
@@ -162,7 +162,7 @@
 
 <tuple_identity> -->   ( <elem_list> )
 	             | <identifier>
-	
+
 	P:	<identifier>.type == tuple
 
 	# Single-element tuples must be made this way --> (<elem>,) The comma is important.
@@ -174,7 +174,7 @@
 
 <membership> -->   <elem> in <set>
 		 | <elem> in <tuple>
-	         | <elem> in <string>			
+	         | <elem> in <string>
 
 
 <access> -->   <set>[<int>]
@@ -205,7 +205,7 @@
 
 <char_add> -->  <char> <addc_tail>
 
-<addc_tail> -->    + <char> 
+<addc_tail> -->    + <char>
 		 | + <int>
 		 | + <char> <addc_tail>
 		 | + <int> <addc_tail>
@@ -222,7 +222,7 @@
 	     | <append>
 
 	P:	<elem>.type == string
- 
+
 <string_identity> -->   "<term>"
 	              | <identifier>
 
@@ -242,7 +242,7 @@
 		  | + <string> <append_tail>
 
 
-<term> -->   <character> 
+<term> -->   <character>
            | <character><term>
 
 
@@ -319,7 +319,7 @@
 
 <if> -->   if (<logical>) { <statements> } <elseif> <else>
 
-<elsif> --> elseif (<logical>) { <statements> } <elseif> | `epsilon`	     
+<elsif> --> elseif (<logical>) { <statements> } <elseif> | `epsilon`
 
 <else> --> else { <statements> }
 

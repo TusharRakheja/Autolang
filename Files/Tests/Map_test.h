@@ -13,7 +13,7 @@ namespace Map_test
 	{
 		cout << "\n\n----------------Testing the Map constructor--------------\n" << endl;
 		Set *domain = new Set( new vector<Elem *> {
-			new String("Hello"), new String("INTJ"), 
+			new String("Hello"), new String("INTJ"),
 			new Tuple(new vector<Elem *>{ new Int(1), new Int(2) }),
 			new  Set (new vector<Elem *>{ new Char('J'), new Char('U')})
 		});
@@ -33,7 +33,7 @@ namespace Map_test
 		cout << "\n\n-------------Testing the add_mapping() method------------\n" << endl;
 		for (int i{ 0 }; i < F->domain_s->cardinality(); i++)
 			F->add_maping(*(*F->domain_s)[i], *(*F->codomain_s)[i]);
-	} 
+	}
 
 	void test_to_string(Map *&F)
 	{
@@ -56,7 +56,7 @@ namespace Map_test
 
 		cout << "F[" << s.to_string() << "] = " << (*F)[s]->to_string() << endl;
 
-		Elem *e = (*F->domain_s)[2];	
+		Elem *e = (*F->domain_s)[2];
 
 		cout << "F[" << e->to_string() << "] = " << (*F)[*e]->to_string() << endl;
 	}
@@ -77,14 +77,14 @@ namespace Map_test
 			new Tuple(new vector<Elem *>{ new Int(3), new Int(4) }),
 			new  Set(new vector<Elem *>{ new Char('N'), new Char('E') }),
 		});
-		
+
 		Set *codomain = new Set(new vector < Elem * > {
 			new String("Greenback Boogey!"), new Int(4)
 		});
 
 		Map *composition_candidate_1 = new Map(domain_1, codomain);
 		Map *composition_candidate_2 = new Map(domain_2, codomain);
-		
+
 
 		String *s1 = (String *)(*domain_1)[0]; String *s2 = (String *)(*codomain)[0];
 		Tuple *t = (Tuple *)(*domain_1)[1]; Int *i = (Int *)(*codomain)[1];
@@ -118,7 +118,7 @@ namespace Map_test
 	void test_deep_copy(Map *&F)
 	{
 		cout << "\n\n------------Testing the deep_copy() method--------------\n" << endl;
-		
+
 		cout << "\nLet F' := F. " << endl << endl;
 
 		Map *F_prime = (Map *) F->deep_copy();
@@ -130,7 +130,7 @@ namespace Map_test
 		cout << "We're now adding an extra element to the codomain of F'." << endl;
 
 		F_prime->domain_s->elems->push_back(new String("Troublemaker"));
-		cout << "(F' == F) = " << (*F_prime == *F) << endl << endl; 
+		cout << "(F' == F) = " << (*F_prime == *F) << endl << endl;
 		delete F_prime;
 	}
 

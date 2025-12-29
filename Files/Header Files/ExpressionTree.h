@@ -1,5 +1,5 @@
-#ifndef EXPRESSION_TREE_H            
-#define EXPRESSION_TREE_H           
+#ifndef EXPRESSION_TREE_H
+#define EXPRESSION_TREE_H
 
 #include "ProgramVars.h"
 #include "Auto.h"
@@ -9,11 +9,11 @@
 #include <cmath>
 
 enum Token_type // If you update this please go and update token_name[] in ExpressionTree.cpp as well.
-{ 
+{
 	INT_LIT, LOGICAL_LIT, CHAR_LIT, STRING_LIT, SET_LIT, ABSTRACT_SET_LIT, TUPLE_LIT,
-	ABSTRACT_MAP_LIT, LITERAL, INDEX, IDENTIFIER, OP, UNARY, END, ERROR, EXPR, 
-	TYPE, MAPPING_SYMBOL, SOURCE_OP, PRINT, IF, ELSEIF, ELSE, WHILE, DECLARE, 
-	L_BRACE, UPDATE_OP, GET, R_BRACE, QUIT, DELETE, DELETE_ELEMS, MAP_OP, 
+	ABSTRACT_MAP_LIT, LITERAL, INDEX, IDENTIFIER, OP, UNARY, END, ERROR, EXPR,
+	TYPE, MAPPING_SYMBOL, SOURCE_OP, PRINT, IF, ELSEIF, ELSE, WHILE, DECLARE,
+	L_BRACE, UPDATE_OP, GET, R_BRACE, QUIT, DELETE, DELETE_ELEMS, MAP_OP,
 	COLON, LET, UNDER, ABSTRACT, PRINTR, MULTITYPE, COMMA, AND
 };
 
@@ -30,11 +30,11 @@ class ExpressionTree;
 class Node
 {
 public:
-	Token token; 
+	Token token;
 	shared_ptr<Elem> value;				// Every node in the expression tree will have a value based on its token.
 	bool operator_node;				// To be set to true if the lexeme in the unit is an OP.
 	bool at_root;					// Boolean to determine if the current root is at the root of the expression tree.
-	ExpressionTree *left, *right;			// The center will only be used 
+	ExpressionTree *left, *right;			// The center will only be used
 
 	Node() { left = nullptr; right = nullptr; operator_node = false; value = nullptr; }
 
@@ -42,7 +42,7 @@ public:
 	shared_ptr<Elem> evaluate();		// Evaluates an expression.
 	~Node()
 	{
-		if (left != nullptr) delete left; 
+		if (left != nullptr) delete left;
 		if (right != nullptr) delete right;
 	}
 };

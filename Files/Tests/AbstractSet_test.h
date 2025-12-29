@@ -19,7 +19,7 @@ namespace AbstractSet_test
 		cout << y.to_string() << " in Z- : " << (z_minus->has(y) ? "True" : "False") << endl;		// Should be True.
 		cout << z.to_string() << " in Z- : " << (z_minus->has(z) ? "True" : "False") << endl << endl;   // Should be True.
 	}
-	
+
 	void test_union(AbstractSet * z_plus, AbstractSet * z_minus)
 	{
 		cout << "\n------------------------------- Testing Z+ U Z- ----------------------------\n\n";
