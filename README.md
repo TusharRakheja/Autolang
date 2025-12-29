@@ -15,9 +15,9 @@
   </p>
   <hr>
   <p align="center">
-   <a href="https://github.com/TusharRakheja/Autolang#building"><b>Build</b></a> &middot; 
-   <a href="https://github.com/TusharRakheja/Autolang#examples"><b>Try</b></a> &middot; 
-   <a href="https://github.com/TusharRakheja/Autolang#license"><b>License</b></a>
+   <a href="#building"><b>Build</b></a> &middot; 
+   <a href="#examples"><b>Try</b></a> &middot; 
+   <a href="#license"><b>License</b></a>
   </p>
  </td>
 </tr>
@@ -67,31 +67,31 @@ Autolang can be used either with a file, or interactively. The filename argument
 
 The real joy of Autolang is its very math-oriented syntax. Here are some cool examples you can try. 
 
- - [Primitives](https://github.com/TusharRakheja/Autolang#1-primitives)
-   * [Integers](https://github.com/TusharRakheja/Autolang#a-integers)
-   * [Characters](https://github.com/TusharRakheja/Autolang#b-characters)
-   * [Logicals](https://github.com/TusharRakheja/Autolang#c-logicals)
- * [Containers](https://github.com/TusharRakheja/Autolang#2-containers)
-   * [Sets](https://github.com/TusharRakheja/Autolang#a-sets)
-   * [Tuples](https://github.com/TusharRakheja/Autolang#b-tuples)
-   * [Strings](https://github.com/TusharRakheja/Autolang#c-strings)
-   * [Maps](https://github.com/TusharRakheja/Autolang#d-maps)
- * [Abstract Containers](https://github.com/TusharRakheja/Autolang#3-abstract-containers)
-   * [Abstract Sets](https://github.com/TusharRakheja/Autolang#a-abstract-sets)
-   * [Abstract Maps](https://github.com/TusharRakheja/Autolang#b-abstract-maps)
- * [Automata](https://github.com/TusharRakheja/Autolang#4-automata)
-   * [DFA](https://github.com/TusharRakheja/Autolang#a-dfa)
- * [Sources and Sinks (I/O)](https://github.com/TusharRakheja/Autolang#5-sources-and-sinks-inputoutput)
-   * [Files](https://github.com/TusharRakheja/Autolang#a-files)
-   * [Console](https://github.com/TusharRakheja/Autolang#b-console)
-   * [Strings as Sources](https://github.com/TusharRakheja/Autolang#c-strings-as-sources)
- * [Functional Concepts](https://github.com/TusharRakheja/Autolang#6-functional-concepts)
-   * [&lambda; Expressions](https://github.com/TusharRakheja/Autolang#a-λ-expressions) 
-   * [Higher-order Functions](https://github.com/TusharRakheja/Autolang#b-higher-order-functions)
-   * [Pure Functions](https://github.com/TusharRakheja/Autolang#c-pure-functions)
- * [Data as Code](https://github.com/TusharRakheja/Autolang#7-data-as-code)
- * [Loops and Conditionals](https://github.com/TusharRakheja/Autolang#8-loops-and-conditionals)
- * [Notes](https://github.com/TusharRakheja/Autolang#9-notes)
+ - [Primitives](#1-primitives)
+   * [Integers](#a-integers)
+   * [Characters](#b-characters)
+   * [Logicals](#c-logicals)
+ * [Containers](#2-containers)
+   * [Sets](#a-sets)
+   * [Tuples](#b-tuples)
+   * [Strings](#c-strings)
+   * [Maps](#d-maps)
+ * [Abstract Containers](#3-abstract-containers)
+   * [Abstract Sets](#a-abstract-sets)
+   * [Abstract Maps](#b-abstract-maps)
+ * [Automata](#4-automata)
+   * [DFA](#a-dfa)
+ * [Sources and Sinks (I/O)](#5-sources-and-sinks-inputoutput)
+   * [Files](#a-files)
+   * [Console](#b-console)
+   * [Strings as Sources](#c-strings-as-sources)
+ * [Functional Concepts](#6-functional-concepts)
+   * [&lambda; Expressions](#a-λ-expressions) 
+   * [Higher-order Functions](#b-higher-order-functions)
+   * [Pure Functions](#c-pure-functions)
+ * [Data as Code](#7-data-as-code)
+ * [Loops and Conditionals](#8-loops-and-conditionals)
+ * [Notes](#9-notes)
  
 ### 1. Primitives
 
@@ -501,7 +501,7 @@ The operand sets can have the same placeholders too, Autolang takes care of that
 
 **Some built-in abstract sets**
 
-If you take the keyword representing a data type and capitalize the first letter (ASet and AMap for abstract sets and maps resepectively), you get an abstract set containing all objects with that data type. The `All` abstract set will return `True` for every membership query. These are useful for restricting the domains and codomains/ranges of [abstract maps](https://github.com/TusharRakheja/Autolang#b-abstract-maps).
+If you take the keyword representing a data type and capitalize the first letter (ASet and AMap for abstract sets and maps resepectively), you get an abstract set containing all objects with that data type. The `All` abstract set will return `True` for every membership query. These are useful for restricting the domains and codomains/ranges of [abstract maps](#b-abstract-maps).
 
 **Interesting**: The abstract set `ASet` is an abstract set containing all abstract sets. So, it contains itself!
 
@@ -872,7 +872,7 @@ More generally, a thing to keep in mind is that though Autolang tries to approxi
 
 Depending on your moral values and whether or not you believe there is any justice in the world, this may or may not have been what you expected. But for now, this is the result. 
 
-We can adjust this particular result using the `unpack` map mentioned in [*`Data as Code`*](https://github.com/TusharRakheja/Autolang#7-data-as-code). Likewise, we may have to come up with such 'hacks' every now and then.
+We can adjust this particular result using the `unpack` map mentioned in [*`Data as Code`*](#7-data-as-code). Likewise, we may have to come up with such 'hacks' every now and then.
 
 Autolang is imperfect. The parser is brittle, there are memory leaks etc. But perfection is the goal. And perfection, is a journey unto itself.
 
